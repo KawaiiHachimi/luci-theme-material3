@@ -193,7 +193,7 @@
 		--on-warn-color: var(--text-color-highest);
 		--disabled-opacity: .7;
 		color-scheme: light;
-		--sidebar-width: 256px;
+		--sidebar-width: 240px;
 		--header-height: 4rem;
 		--md-sys-color-primary: hsl(256, 34%, 48%);
 		--md-sys-color-primary-container: hsl(263, 65%, 92%);
@@ -228,6 +228,9 @@
 		--md-sys-color-refresh-button-hover: #a0a9c2;
 		--md-sys-color-font: #000;
 		--md-sys-color-light: #fff;
+		--background-color-h: 220;
+		--background-color-s: 40%;
+		--md-sys-color-surface-dim: hsl(var(--background-color-h), var(--background-color-s), 93%);
 	}
 
 	:root[data-theme="green"] {
@@ -246,6 +249,9 @@
 		--md-sys-color-refresh-button-hover: #a0c2a9;
 		--md-sys-color-font: #000;
 		--md-sys-color-light: #fff;
+		--background-color-h: 160;
+		--background-color-s: 30%;
+		--md-sys-color-surface-dim: hsl(var(--background-color-h), var(--background-color-s), 91%);
 	}
 
 	:root[data-theme="red"] {
@@ -264,6 +270,9 @@
 		--md-sys-color-refresh-button-hover: #c2a0a0;
 		--md-sys-color-font: #000;
 		--md-sys-color-light: #fff;
+		--background-color-h: 10;
+		--background-color-s: 35%;
+		--md-sys-color-surface-dim: hsl(var(--background-color-h), var(--background-color-s), 94%);
 	}
 
 	/* ========== 暗色主题颜色继承 ========== */
@@ -285,6 +294,8 @@
 		--md-sys-color-refresh-button-hover: color-mix(in srgb, var(--md-sys-color-primary) 50%, transparent);
 		--md-sys-color-dropdown-hover: color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent);
 		--md-sys-color-primary-container-hover: color-mix(in srgb, var(--md-sys-color-primary-container) 50%, transparent);
+		--background-color-h: 220;
+		--background-color-s: 15%;
 	}
 
 	[data-darkmode=true][data-theme="green"] {
@@ -295,6 +306,8 @@
 		--md-sys-color-refresh-button-hover: color-mix(in srgb, var(--md-sys-color-primary) 50%, transparent);
 		--md-sys-color-dropdown-hover: color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent);
 		--md-sys-color-primary-container-hover: color-mix(in srgb, var(--md-sys-color-primary-container) 50%, transparent);
+		--background-color-h: 160;
+		--background-color-s: 10%;
 	}
 
 	[data-darkmode=true][data-theme="red"] {
@@ -305,14 +318,14 @@
 		--md-sys-color-refresh-button-hover: color-mix(in srgb, var(--md-sys-color-primary) 50%, transparent);
 		--md-sys-color-dropdown-hover: color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent);
 		--md-sys-color-primary-container-hover: color-mix(in srgb, var(--md-sys-color-primary-container) 50%, transparent);
+		--background-color-h: 10;
+		--background-color-s: 15%;
 	}
 
 	:root[data-darkmode=true] {
-		/* 修正基础色相 */
-		--background-color-h: 240;
-		--background-color-s: 5%;
 		/* Material3暗色表面系统 */
-		--md-sys-color-surface: hsl(var(--background-color-h), var(--background-color-s), 12%);
+		--md-sys-color-surface: hsl(var(--background-color-h), var(--background-color-s), 6%);
+		--md-sys-color-surface-dim: hsl(var(--background-color-h), var(--background-color-s), 12%);
 		--md-sys-color-surface-translucent: hsla(var(--background-color-h), var(--background-color-s), 12%, 0.84);
 		--md-sys-color-card: color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
 		/* 组件颜色适配 */
@@ -1241,9 +1254,12 @@
 		vertical-align: top
 	}
 
-	.cbi-section-table .tr.cbi-section-table-descr .th,
-	header .brand {
+	.cbi-section-table .tr.cbi-section-table-descr .th {
 		font-weight: 400
+	}
+
+	header .brand {
+		font-weight: 900;
 	}
 
 	.tr.placeholder {
@@ -1275,14 +1291,12 @@
 		top: 0;
 		z-index: 800;
 		height: var(--header-height);
-		background: var(--md-sys-color-surface-translucent);
-		backdrop-filter: blur(15px);
+		background: transparent;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		transition: box-shadow .3s;
-		background: linear-gradient(#333, #222);
-		box-shadow: 0 1px 3px hsla(var(--border-color-low-hsl), .25), inset 0 -1px 0 hsla(var(--border-color-low-hsl), .01);
+		box-shadow: none;
+		border: none;
 		padding: 0
 	}
 
@@ -2764,19 +2778,20 @@
 	}
 
 	#maincontent {
-	grid-area: main;
-	padding: 1rem;
-	overflow-x: hidden;
-	min-height: calc(100vh - var(--header-height));
-	width: 100%;
-	box-sizing: border-box
+		grid-area: main;
+		padding: 1rem;
+		overflow-x: hidden;
+		min-height: calc(100vh - var(--header-height));
+		width: 100%;
+		box-sizing: border-box;
+		background: var(--md-sys-color-surface);
+		border-radius: 2rem 0 0 0;
 	}
-
 	.sidebar {
 		grid-area: sidebar;
 		width: var(--sidebar-width);
-		background: var(--background-color-low);
-		border-right: 0px solid var(--border-color-medium);
+		background: transparent;
+		border: none;
 		padding: 0;
 		overflow-y: auto;
 		transition: transform .3s;
@@ -3016,7 +3031,7 @@
 	}
 
 	body {
-		background: var(--md-sys-color-surface);
+		background: var(--md-sys-color-surface-dim);
 		--background-color-high: var(--md-sys-color-surface);
 		--background-color-low: var(--md-sys-color-surface);
 		-webkit-font-smoothing: antialiased;
@@ -3105,12 +3120,18 @@
 		overflow: hidden
 	}
 
-	.nav .dropdown-menu,
-	header {
+	.nav .dropdown-menu {
 		border: none;
 		backdrop-filter: blur(15px);
 		box-shadow: none;
 		background: var(--md-sys-color-surface-translucent);
+	}
+
+	header {
+		border: none;
+		backdrop-filter: none;
+		box-shadow: none;
+		background: transparent;
 	}
 
 	#localtime,

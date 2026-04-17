@@ -41,7 +41,8 @@ header h3 a {
 	}
 
 	#maincontent {
-		margin-left: 0
+		margin-left: 0;
+		border-radius: 0;
 	}
 
 	footer {
