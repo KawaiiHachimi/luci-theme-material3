@@ -595,14 +595,13 @@
 		grid-template-areas: "header header" "sidebar main" "sidebar footer";
 		grid-template-columns: var(--sidebar-width) 1fr;
 		grid-template-rows: var(--header-height) 1fr auto;
-		height: 100vh;
+		min-height: 100vh;
 		margin: 0;
 		padding: 0;
 		background: var(--background-color-medium);
 		font-size: 13px;
 		font-weight: 400;
 		flex-direction: column;
-		overflow: hidden;
 		overscroll-behavior: none;
 		-webkit-tap-highlight-color: transparent;
 	}
@@ -2797,9 +2796,8 @@
 	#maincontent {
 		grid-area: main;
 		padding: 2rem 6rem; /* Increase side padding to compress content */
-		overflow-y: auto;
+		overflow-y: visible;
 		overflow-x: hidden;
-		height: 100%;
 		width: 100%;
 		box-sizing: border-box;
 		background: var(--md-sys-color-surface);
@@ -2815,6 +2813,9 @@
 		transition: transform .3s;
 		font-size: 14px;
 		scrollbar-width: none;
+		position: sticky;
+		top: var(--header-height);
+		height: calc(100vh - var(--header-height));
 	}
 
 	.sidebar::-webkit-scrollbar {

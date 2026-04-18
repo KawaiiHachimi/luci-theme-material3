@@ -4,9 +4,11 @@ header h3 a {
 	left: 50%;
 	transform: translateX(-50%);
 	width: auto;
+	max-width: 50vw; /* Prevent overlapping with buttons */
+	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	font-size: 1.6rem
+	font-size: 1.4rem /* Slightly smaller to fit */
 }
 
 @media screen and (max-width:854px) {
@@ -43,11 +45,11 @@ header h3 a {
 	#maincontent {
 		margin-left: 0;
 		border-radius: 0;
+		padding: 1rem !important; /* Remove large side padding on mobile */
 	}
 
 	footer {
-		padding-left: 1rem;
-		padding-right: 1rem
+		padding: 1rem !important; /* Remove large side padding on mobile */
 	}
 
 	.modal {
@@ -596,5 +598,16 @@ header h3 a {
 	.ifacebox .ifacebox-body>*,
 	.td .ifacebox .ifacebox-head>* {
 		margin: .125em
+	}
+
+	/* Bigger touch targets in sidebar */
+	.sidebar .nav > li > a {
+		padding: 1rem 1.5rem !important; /* Larger padding for touch */
+		font-size: 1.1rem !important; /* Larger font size */
+		margin: 0.25rem 0.5rem !important; /* More space between items */
+	}
+
+	.sidebar .nav > li {
+		margin-bottom: 0.5rem;
 	}
 }
