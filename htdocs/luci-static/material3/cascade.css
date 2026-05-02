@@ -16,6 +16,7 @@
  * --------- */
 
 :root {
+	/* Bootstrap/LuCI derived color scales */
 	--background-color-delta-l-sign: -1;
 	--background-color-h: 0;
 	--background-color-s: 0%;
@@ -77,41 +78,42 @@
 		var(--border-color-h),
 		var(--border-color-s),
 		calc(var(--border-color-l) + var(--border-color-delta-l-sign) * 20%);
-	--border-color-high: hsl(var(--border-color-high-hsl));
+	--border-color-high: var(--outline);
 
 	--border-color-medium-hsl:
 		var(--border-color-h),
 		var(--border-color-s),
 		calc(var(--border-color-l) + var(--border-color-delta-l-sign) * 13.33%);
-	--border-color-medium: hsl(var(--border-color-medium-hsl));
+	--border-color-medium: var(--outline-variant);
 
-	--border-color-low-hsl:
-		var(--border-color-h),
-		var(--border-color-s),
-		calc(var(--border-color-l) + var(--border-color-delta-l-sign) * 6.67%);
-	--border-color-low: hsl(var(--border-color-low-hsl));
+	--border-color-low-h: var(--border-color-h);
+	--border-color-low-s: var(--border-color-s);
+	--border-color-low-l: calc(var(--border-color-l) + var(--border-color-delta-l-sign) * 6.67%);
+	--border-color-low-hsl: var(--border-color-low-h), var(--border-color-low-s), var(--border-color-low-l);
+	--border-color-low: color-mix(in srgb, var(--outline-variant) 62%, var(--surface-container-low));
 
-	--primary-color-high: #1976d2;
-	--primary-color-medium: #1564c0;
-	--primary-color-low: #0d46a1;
-	--on-primary-color: var(--background-color-high);
+	--primary-color-high: var(--primary);
+	--primary-color-medium: var(--button-hover);
+	--primary-color-low: var(--button-pressed);
+	--on-primary-color: var(--on-primary);
 
-	--error-color-high-rgb: 246, 43, 18;
-	--error-color-high: rgb(var(--error-color-high-rgb));
-	--error-color-medium: #e8210d;
-	--error-color-low: #d00000;
-	--on-error-color: var(--background-color-high);
+	--error-color-high-rgb: var(--error-rgb);
+	--error-color-high: var(--error);
+	--error-color-medium: color-mix(in srgb, var(--error) 92%, var(--error-container));
+	--error-color-low: var(--error-container);
+	--on-error-color: var(--on-error);
 
-	--success-color-high-rgb: 0, 172, 89;
-	--success-color-high: rgb(var(--success-color-high-rgb));
-	--success-color-medium: #009a4c;
-	--success-color-low: #007936;
-	--on-success-color: var(--background-color-high);
+	--success-color-high-rgb: var(--success-rgb);
+	--success-color-high: var(--success);
+	--success-color-medium: color-mix(in srgb, var(--success) 92%, var(--success-container));
+	--success-color-low: var(--success-container);
+	--on-success-color: var(--on-success);
 
-	--warn-color-high: #efbd0b;
-	--warn-color-medium: #f0c629;
-	--warn-color-low: #f2d24f;
-	--on-warn-color: var(--text-color-highest);
+	--warn-color-high: var(--warning);
+	--warn-color-medium: color-mix(in srgb, var(--warning) 92%, var(--warning-container));
+	--warn-color-low: var(--warning-container);
+	--on-warn-color: var(--on-warning);
+	--focus-color-rgb: var(--primary-rgb);
 
 	--disabled-opacity: .7;
 
@@ -121,37 +123,609 @@
 	--font-mono: Monaco, Andale Mono, Courier New, ui-monospace, monospace;
 }
 
-:root[data-darkmode="true"] {
+/* Material 3 light palettes
+ * -------------------------------------------------- */
+
+/* 1. MD3 Baseline Purple - light */
+:root,
+:root[data-theme="baseline"],
+:root[data-color-scheme="baseline"] {
+	--primary: #6750A4;
+	--primary-rgb: 103, 80, 164;
+	--on-primary: #FFFFFF;
+	--primary-container: #EADDFF;
+	--on-primary-container: #21005D;
+	--secondary: #625B71;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #E8DEF8;
+	--on-secondary-container: #1D192B;
+	--tertiary: #7D5260;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #FFD8E4;
+	--on-tertiary-container: #31111D;
+	--background: #FFFBFE;
+	--on-background: #1C1B1F;
+	--surface: #FFFBFE;
+	--on-surface: #1C1B1F;
+	--surface-container-low: #F7F2FA;
+	--surface-container: #F3EDF7;
+	--surface-container-high: #ECE6F0;
+	--surface-variant: #E7E0EC;
+	--on-surface-variant: #49454F;
+	--outline: #79747E;
+	--outline-variant: #CAC4D0;
+	--error: #B3261E;
+	--error-rgb: 179, 38, 30;
+	--on-error: #FFFFFF;
+	--error-container: #F9DEDC;
+	--on-error-container: #410E0B;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #735EAB;
+	--button-pressed: #7965AF;
+	--background-color-h: 300;
+	--background-color-s: 100%;
+	--background-color-l: 99%;
+}
+
+/* 2. Trust Blue - light */
+:root[data-theme="blue"],
+:root[data-color-scheme="blue"] {
+	--primary: #0061A4;
+	--primary-rgb: 0, 97, 164;
+	--on-primary: #FFFFFF;
+	--primary-container: #D1E4FF;
+	--on-primary-container: #001D36;
+	--secondary: #535F70;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #D7E3F7;
+	--on-secondary-container: #101C2B;
+	--tertiary: #6B5778;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #F2DAFF;
+	--on-tertiary-container: #251431;
+	--background: #FCFCFF;
+	--on-background: #1A1C1E;
+	--surface: #FCFCFF;
+	--on-surface: #1A1C1E;
+	--surface-container-low: #F2F3F7;
+	--surface-container: #ECEEF2;
+	--surface-container-high: #E6E8EC;
+	--surface-variant: #DFE2EB;
+	--on-surface-variant: #43474E;
+	--outline: #73777F;
+	--outline-variant: #C3C7CF;
+	--error: #BA1A1A;
+	--error-rgb: 186, 26, 26;
+	--on-error: #FFFFFF;
+	--error-container: #FFDAD6;
+	--on-error-container: #410002;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #146EAB;
+	--button-pressed: #1F74AF;
+	--background-color-h: 240;
+	--background-color-s: 100%;
+	--background-color-l: 99%;
+}
+
+/* 3. Growth Green - light */
+:root[data-theme="green"],
+:root[data-color-scheme="green"] {
+	--primary: #006D3A;
+	--primary-rgb: 0, 109, 58;
+	--on-primary: #FFFFFF;
+	--primary-container: #92F7B3;
+	--on-primary-container: #00210D;
+	--secondary: #526353;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #D5E8D4;
+	--on-secondary-container: #101F13;
+	--tertiary: #39656F;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #BDEAF6;
+	--on-tertiary-container: #001F26;
+	--background: #FBFDF7;
+	--on-background: #191C19;
+	--surface: #FBFDF7;
+	--on-surface: #191C19;
+	--surface-container-low: #F0F4ED;
+	--surface-container: #EAEEE7;
+	--surface-container-high: #E4E9E2;
+	--surface-variant: #DDE5DA;
+	--on-surface-variant: #414941;
+	--outline: #717970;
+	--outline-variant: #C1C9BF;
+	--error: #BA1A1A;
+	--error-rgb: 186, 26, 26;
+	--on-error: #FFFFFF;
+	--error-container: #FFDAD6;
+	--on-error-container: #410002;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #14794A;
+	--button-pressed: #1F7F52;
+	--background-color-h: 80;
+	--background-color-s: 60%;
+	--background-color-l: 98%;
+}
+
+/* 4. Calm Teal - light */
+:root[data-theme="teal"],
+:root[data-color-scheme="teal"] {
+	--primary: #006A6A;
+	--primary-rgb: 0, 106, 106;
+	--on-primary: #FFFFFF;
+	--primary-container: #6FF7F6;
+	--on-primary-container: #002020;
+	--secondary: #4A6363;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #CCE8E7;
+	--on-secondary-container: #051F1F;
+	--tertiary: #4B607C;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #D3E4FF;
+	--on-tertiary-container: #041C35;
+	--background: #FAFDFC;
+	--on-background: #191C1C;
+	--surface: #FAFDFC;
+	--on-surface: #191C1C;
+	--surface-container-low: #EFF4F3;
+	--surface-container: #E9EFEE;
+	--surface-container-high: #E3E9E8;
+	--surface-variant: #DAE5E4;
+	--on-surface-variant: #3F4948;
+	--outline: #6F7978;
+	--outline-variant: #BEC9C8;
+	--error: #BA1A1A;
+	--error-rgb: 186, 26, 26;
+	--on-error: #FFFFFF;
+	--error-container: #FFDAD6;
+	--on-error-container: #410002;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #147676;
+	--button-pressed: #1F7C7C;
+	--background-color-h: 160;
+	--background-color-s: 43%;
+	--background-color-l: 99%;
+}
+
+/* 5. Warm Orange - light */
+:root[data-theme="orange"],
+:root[data-color-scheme="orange"] {
+	--primary: #8F4C00;
+	--primary-rgb: 143, 76, 0;
+	--on-primary: #FFFFFF;
+	--primary-container: #FFDCBE;
+	--on-primary-container: #2E1500;
+	--secondary: #735A42;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #FFDCBE;
+	--on-secondary-container: #291806;
+	--tertiary: #59633F;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #DDE9B8;
+	--on-tertiary-container: #171E03;
+	--background: #FFFBFF;
+	--on-background: #201A17;
+	--surface: #FFFBFF;
+	--on-surface: #201A17;
+	--surface-container-low: #F8F0EA;
+	--surface-container: #F2EAE4;
+	--surface-container-high: #ECE4DE;
+	--surface-variant: #F2DFD1;
+	--on-surface-variant: #51443A;
+	--outline: #837468;
+	--outline-variant: #D5C3B5;
+	--error: #BA1A1A;
+	--error-rgb: 186, 26, 26;
+	--on-error: #FFFFFF;
+	--error-container: #FFDAD6;
+	--on-error-container: #410002;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #985A14;
+	--button-pressed: #9C611F;
+	--background-color-h: 300;
+	--background-color-s: 100%;
+	--background-color-l: 99%;
+}
+
+/* 6. Expressive Rose - light */
+:root[data-theme="rose"],
+:root[data-color-scheme="rose"] {
+	--primary: #BA1A46;
+	--primary-rgb: 186, 26, 70;
+	--on-primary: #FFFFFF;
+	--primary-container: #FFD9DF;
+	--on-primary-container: #400014;
+	--secondary: #74565E;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #FFD9DF;
+	--on-secondary-container: #2B151B;
+	--tertiary: #7C5635;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #FFDCC2;
+	--on-tertiary-container: #2E1500;
+	--background: #FFFBFF;
+	--on-background: #201A1B;
+	--surface: #FFFBFF;
+	--on-surface: #201A1B;
+	--surface-container-low: #F9EFF1;
+	--surface-container: #F3E9EB;
+	--surface-container-high: #EDE3E5;
+	--surface-variant: #F3DDE1;
+	--on-surface-variant: #524346;
+	--outline: #847376;
+	--outline-variant: #D6C2C6;
+	--error: #BA1A1A;
+	--error-rgb: 186, 26, 26;
+	--on-error: #FFFFFF;
+	--error-container: #FFDAD6;
+	--on-error-container: #410002;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #C02C55;
+	--button-pressed: #C2355C;
+	--background-color-h: 340;
+	--background-color-s: 100%;
+	--background-color-l: 99%;
+}
+
+/* Material 3 dark palettes
+ * -------------------------------------------------- */
+
+/* 1. MD3 Baseline Purple - dark */
+:root[data-darkmode="true"],
+:root[data-mode="dark"],
+:root[data-darkmode="true"][data-theme="baseline"],
+:root[data-mode="dark"][data-theme="baseline"],
+:root[data-darkmode="true"][data-color-scheme="baseline"],
+:root[data-mode="dark"][data-color-scheme="baseline"] {
+	--primary: #D0BCFF;
+	--primary-rgb: 208, 188, 255;
+	--on-primary: #381E72;
+	--primary-container: #4F378B;
+	--on-primary-container: #EADDFF;
+	--secondary: #CCC2DC;
+	--on-secondary: #332D41;
+	--secondary-container: #4A4458;
+	--on-secondary-container: #E8DEF8;
+	--tertiary: #EFB8C8;
+	--on-tertiary: #492532;
+	--tertiary-container: #633B48;
+	--on-tertiary-container: #FFD8E4;
+	--background: #1C1B1F;
+	--on-background: #E6E1E5;
+	--surface: #1C1B1F;
+	--on-surface: #E6E1E5;
+	--surface-container-low: #211F26;
+	--surface-container: #2B2930;
+	--surface-container-high: #36343B;
+	--surface-variant: #49454F;
+	--on-surface-variant: #CAC4D0;
+	--outline: #938F99;
+	--outline-variant: #49454F;
+	--error: #F2B8B5;
+	--error-rgb: 242, 184, 181;
+	--on-error: #601410;
+	--error-container: #8C1D18;
+	--on-error-container: #F9DEDC;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #C4AFF4;
+	--button-pressed: #BEA9EE;
 	--background-color-delta-l-sign: 1;
-	--background-color-h: 0;
-	--background-color-s: 0%;
-	--background-color-l: 13.33%;
+	--background-color-h: 260;
+	--background-color-s: 7%;
+	--background-color-l: 11%;
 	--text-color-delta-l-sign: -1;
 	--text-color-h: 0;
 	--text-color-s: 0%;
 	--text-color-l: 100%;
 	--border-color-delta-l-sign: 1;
-
-	--primary-color-high: #4da1c0;
-	--primary-color-medium: #448da6;
-	--primary-color-low: #3c7a8d;
-
-	--error-color-high-rgb: 209, 86, 83;
-	--error-color-medium: #bf4e4c;
-	--error-color-low: #b14946;
-
-	--success-color-high-rgb: 0, 166, 108;
-	--success-color-medium: #00945e;
-	--success-color-low: #008252;
-
-	--warn-color-high: #a69461;
-	--warn-color-medium: #a68d45;
-	--warn-color-low: #a68732;
-	--on-warn-color: var(--background-color-high);
-
 	--disabled-opacity: .4;
-
 	color-scheme: dark;
+}
+
+/* 2. Trust Blue - dark */
+:root[data-darkmode="true"][data-theme="blue"],
+:root[data-mode="dark"][data-theme="blue"],
+:root[data-darkmode="true"][data-color-scheme="blue"],
+:root[data-mode="dark"][data-color-scheme="blue"] {
+	--primary: #9ECAFF;
+	--primary-rgb: 158, 202, 255;
+	--on-primary: #003258;
+	--primary-container: #00497D;
+	--on-primary-container: #D1E4FF;
+	--secondary: #BBC7DB;
+	--on-secondary: #253140;
+	--secondary-container: #3B4858;
+	--on-secondary-container: #D7E3F7;
+	--tertiary: #D7BDE4;
+	--on-tertiary: #3B2948;
+	--tertiary-container: #523F5F;
+	--on-tertiary-container: #F2DAFF;
+	--background: #1A1C1E;
+	--on-background: #E2E2E6;
+	--surface: #1A1C1E;
+	--on-surface: #E2E2E6;
+	--surface-container-low: #1F2327;
+	--surface-container: #282C31;
+	--surface-container-high: #33373C;
+	--surface-variant: #43474E;
+	--on-surface-variant: #C3C7CF;
+	--outline: #8D9199;
+	--outline-variant: #43474E;
+	--error: #FFB4AB;
+	--error-rgb: 255, 180, 171;
+	--on-error: #690005;
+	--error-container: #93000A;
+	--on-error-container: #FFDAD6;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #91BEF2;
+	--button-pressed: #8BB8EB;
+	--background-color-h: 210;
+	--background-color-s: 7%;
+	--background-color-l: 11%;
+}
+
+/* 3. Growth Green - dark */
+:root[data-darkmode="true"][data-theme="green"],
+:root[data-mode="dark"][data-theme="green"],
+:root[data-darkmode="true"][data-color-scheme="green"],
+:root[data-mode="dark"][data-color-scheme="green"] {
+	--primary: #76DA99;
+	--primary-rgb: 118, 218, 153;
+	--on-primary: #00391A;
+	--primary-container: #005229;
+	--on-primary-container: #92F7B3;
+	--secondary: #B9CCB8;
+	--on-secondary: #253426;
+	--secondary-container: #3B4B3B;
+	--on-secondary-container: #D5E8D4;
+	--tertiary: #A1CED9;
+	--on-tertiary: #00363F;
+	--tertiary-container: #1F4D57;
+	--on-tertiary-container: #BDEAF6;
+	--background: #191C19;
+	--on-background: #E1E3DE;
+	--surface: #191C19;
+	--on-surface: #E1E3DE;
+	--surface-container-low: #1E221E;
+	--surface-container: #282C27;
+	--surface-container-high: #323732;
+	--surface-variant: #414941;
+	--on-surface-variant: #C1C9BF;
+	--outline: #8B9389;
+	--outline-variant: #414941;
+	--error: #FFB4AB;
+	--error-rgb: 255, 180, 171;
+	--on-error: #690005;
+	--error-container: #93000A;
+	--on-error-container: #FFDAD6;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #6DCD8F;
+	--button-pressed: #68C78A;
+	--background-color-h: 120;
+	--background-color-s: 6%;
+	--background-color-l: 10%;
+}
+
+/* 4. Calm Teal - dark */
+:root[data-darkmode="true"][data-theme="teal"],
+:root[data-mode="dark"][data-theme="teal"],
+:root[data-darkmode="true"][data-color-scheme="teal"],
+:root[data-mode="dark"][data-color-scheme="teal"] {
+	--primary: #4CDADA;
+	--primary-rgb: 76, 218, 218;
+	--on-primary: #003737;
+	--primary-container: #004F4F;
+	--on-primary-container: #6FF7F6;
+	--secondary: #B1CCCB;
+	--on-secondary: #1C3534;
+	--secondary-container: #334B4A;
+	--on-secondary-container: #CCE8E7;
+	--tertiary: #B3C8E8;
+	--on-tertiary: #1C314B;
+	--tertiary-container: #344863;
+	--on-tertiary-container: #D3E4FF;
+	--background: #191C1C;
+	--on-background: #E0E3E2;
+	--surface: #191C1C;
+	--on-surface: #E0E3E2;
+	--surface-container-low: #1E2222;
+	--surface-container: #272D2D;
+	--surface-container-high: #323737;
+	--surface-variant: #3F4948;
+	--on-surface-variant: #BEC9C8;
+	--outline: #899392;
+	--outline-variant: #3F4948;
+	--error: #FFB4AB;
+	--error-rgb: 255, 180, 171;
+	--on-error: #690005;
+	--error-container: #93000A;
+	--on-error-container: #FFDAD6;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #46CDCD;
+	--button-pressed: #43C6C6;
+	--background-color-h: 180;
+	--background-color-s: 6%;
+	--background-color-l: 10%;
+}
+
+/* 5. Warm Orange - dark */
+:root[data-darkmode="true"][data-theme="orange"],
+:root[data-mode="dark"][data-theme="orange"],
+:root[data-darkmode="true"][data-color-scheme="orange"],
+:root[data-mode="dark"][data-color-scheme="orange"] {
+	--primary: #FFB870;
+	--primary-rgb: 255, 184, 112;
+	--on-primary: #4C2700;
+	--primary-container: #6D3900;
+	--on-primary-container: #FFDCBE;
+	--secondary: #E2C1A4;
+	--on-secondary: #402C18;
+	--secondary-container: #59422C;
+	--on-secondary-container: #FFDCBE;
+	--tertiary: #C1CD9E;
+	--on-tertiary: #2C340F;
+	--tertiary-container: #424B25;
+	--on-tertiary-container: #DDE9B8;
+	--background: #201A17;
+	--on-background: #ECE0DA;
+	--surface: #201A17;
+	--on-surface: #ECE0DA;
+	--surface-container-low: #271F1A;
+	--surface-container: #312923;
+	--surface-container-high: #3C332D;
+	--surface-variant: #51443A;
+	--on-surface-variant: #D5C3B5;
+	--outline: #9E8E81;
+	--outline-variant: #51443A;
+	--error: #FFB4AB;
+	--error-rgb: 255, 180, 171;
+	--on-error: #690005;
+	--error-container: #93000A;
+	--on-error-container: #FFDAD6;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #F1AC67;
+	--button-pressed: #EAA763;
+	--background-color-h: 20;
+	--background-color-s: 16%;
+	--background-color-l: 11%;
+}
+
+/* 6. Expressive Rose - dark */
+:root[data-darkmode="true"][data-theme="rose"],
+:root[data-mode="dark"][data-theme="rose"],
+:root[data-darkmode="true"][data-color-scheme="rose"],
+:root[data-mode="dark"][data-color-scheme="rose"] {
+	--primary: #FFB2BE;
+	--primary-rgb: 255, 178, 190;
+	--on-primary: #670025;
+	--primary-container: #920034;
+	--on-primary-container: #FFD9DF;
+	--secondary: #E2BDC5;
+	--on-secondary: #422930;
+	--secondary-container: #5A3F46;
+	--on-secondary-container: #FFD9DF;
+	--tertiary: #EFBD94;
+	--on-tertiary: #48290D;
+	--tertiary-container: #623F20;
+	--on-tertiary-container: #FFDCC2;
+	--background: #201A1B;
+	--on-background: #EBE0E1;
+	--surface: #201A1B;
+	--on-surface: #EBE0E1;
+	--surface-container-low: #271F21;
+	--surface-container: #31292B;
+	--surface-container-high: #3C3335;
+	--surface-variant: #524346;
+	--on-surface-variant: #D6C2C6;
+	--outline: #9F8C90;
+	--outline-variant: #524346;
+	--error: #FFB4AB;
+	--error-rgb: 255, 180, 171;
+	--on-error: #690005;
+	--error-container: #93000A;
+	--on-error-container: #FFDAD6;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #F3A4B2;
+	--button-pressed: #ED9DAC;
+	--background-color-h: 350;
+	--background-color-s: 10%;
+	--background-color-l: 11%;
 }
 
 /* Reset.less
@@ -652,7 +1226,7 @@ select,
 	border: 1px solid var(--border-color-high);
 	border-radius: 0 3px 3px 0;
 	font-weight: bold;
-	color: #c44;
+	color: var(--error-color-high);
 	pointer-events: auto;
 }
 
@@ -873,8 +1447,6 @@ input, button, textarea, select {
 input[type="checkbox"]:focus::before,
 input[type="radio"]:focus::before,
 input:focus, button:hover, textarea:focus, select:focus {
-	--focus-color-rgb: 82, 168, 236;
-
 	outline: 0;
 	border-color: rgba(var(--focus-color-rgb), 0.8) !important;
 	box-shadow: inset 0 1px 3px hsla(var(--border-color-low-hsl), .01), 0 0 8px rgba(var(--focus-color-rgb), 0.6);
@@ -1012,7 +1584,7 @@ textarea[readonly] {
 
 .tr.drag-over-above,
 .tr.drag-over-below {
-	border: 2px solid #0069d6;
+	border: 2px solid var(--primary-color-high);
 	border-width: 2px 0 0 0;
 }
 
@@ -1028,20 +1600,19 @@ header {
 	top: 0;
 	z-index: 800;
 	overflow: visible;
-	color: #BFBFBF;
+	color: var(--on-primary);
 	margin: -5px -5px 15px -5px;
 	display: flex;
 }
 
 header a {
-	color: #bfbfbf;
-	text-shadow: 0 -1px 0 hsla(var(--border-color-low-hsl), .25);
+	color: color-mix(in srgb, var(--on-primary) 78%, var(--primary));
+	text-shadow: none;
 }
 
 header .brand:hover, header ul .active > a {
-	background-color: #333;
-	background-color: rgba(255, 255, 255, 0.05);
-	color: #fff;
+	background-color: color-mix(in srgb, var(--on-primary) 14%, var(--primary));
+	color: var(--on-primary);
 	text-decoration: none;
 }
 
@@ -1050,7 +1621,7 @@ header .brand {
 	display: block;
 	padding: 8px 20px 12px;
 	margin-left: -15px;
-	color: #fff;
+	color: var(--on-primary);
 	font-size: 20px;
 	font-weight: 200;
 	line-height: 1;
@@ -1068,8 +1639,8 @@ header p {
 }
 
 header {
-	background: linear-gradient(#333333, #222222);
-	box-shadow: 0 1px 3px hsla(var(--border-color-low-hsl), .25), inset 0 -1px 0 hsla(var(--border-color-low-hsl), .01);
+	background: var(--primary);
+	box-shadow: 0 1px 3px color-mix(in srgb, var(--primary) 28%, transparent);
 	padding: 0;
 	/* the redundant properties below work around a csstidy bug */
 	padding-left: calc((100% - 1180px) / 2);
@@ -1098,42 +1669,40 @@ header {
 }
 
 .nav a:hover {
-	color: #fff;
+	color: var(--on-primary);
 	text-decoration: none;
 }
 
 .nav .active > a {
-	background-color: #222;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: color-mix(in srgb, var(--on-primary) 18%, var(--primary));
 }
 
 .nav a.menu:hover {
-	background: #444;
-	background: rgba(255, 255, 255, 0.05);
+	background: color-mix(in srgb, var(--on-primary) 12%, var(--primary));
 }
 
 .nav .dropdown-menu {
-	background-color: #333;
+	background-color: var(--primary-container);
 }
 
 .nav .dropdown-menu a.menu {
-	color: #fff;
+	color: var(--on-primary-container);
 }
 
 .nav .dropdown-menu li a {
-	color: #999;
-	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+	color: color-mix(in srgb, var(--on-primary-container) 72%, var(--primary-container));
+	text-shadow: none;
 }
 
 .nav .dropdown-menu li a:hover {
-	background-color: #191919;
+	background-color: color-mix(in srgb, var(--primary) 14%, var(--primary-container));
 	background-repeat: repeat-x;
-	background-image: linear-gradient(to bottom, #292929, #191919);
-	color: #fff;
+	background-image: none;
+	color: var(--on-primary-container);
 }
 
 .nav .dropdown-menu .active a {
-	color: #fff;
+	color: var(--on-primary-container);
 }
 
 .nav .dropdown-menu li a {
@@ -1155,12 +1724,12 @@ a.menu:after {
 	margin-left: 4px;
 	border-left: 4px solid transparent;
 	border-right: 4px solid transparent;
-	border-top: 4px solid #fff;
+	border-top: 4px solid currentColor;
 	opacity: 0.5;
 }
 
 .dropdown-menu {
-	background-color: #fff;
+	background-color: var(--surface-container-low);
 	float: left;
 	position: absolute;
 	top: 40px;
@@ -1171,12 +1740,11 @@ a.menu:after {
 	margin-right: 0;
 	padding: 6px 0;
 	zoom: 1;
-	border-color: #999;
-	border-color: rgba(0, 0, 0, 0.2);
+	border-color: var(--outline-variant);
 	border-style: solid;
 	border-width: 0 1px 1px;
 	border-radius: 0 0 6px 6px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 4px color-mix(in srgb, var(--outline) 18%, transparent);
 	background-clip: padding-box;
 }
 
@@ -1192,17 +1760,17 @@ a.menu:after {
 	clear: both;
 	font-weight: normal;
 	line-height: 18px;
-	color: #808080;
-	text-shadow: 0 1px 0 #fff;
+	color: var(--on-surface-variant);
+	text-shadow: none;
 }
 
 .dropdown-menu a:hover {
-	background-color: #ddd;
+	background-color: var(--surface-container);
 	background-repeat: repeat-x;
-	background-image: linear-gradient(to bottom, #eee, #ddd);
-	color: #404040;
+	background-image: none;
+	color: var(--on-surface);
 	text-decoration: none;
-	box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.025), inset 0 -1px rgba(0, 0, 0, 0.025);
+	box-shadow: inset 0 1px 0 color-mix(in srgb, var(--outline) 6%, transparent), inset 0 -1px color-mix(in srgb, var(--outline) 6%, transparent);
 }
 
 .dropdown:hover ul.dropdown-menu {
@@ -1219,19 +1787,14 @@ a.menu:after {
 }
 
 .tabs, .cbi-tabmenu {
-	--tab-bar-background-color: var(--background-color-high);
-	--tab-inactive-background-color-h: var(--border-color-low-h);
-	--tab-inactive-background-color-s: var(--border-color-low-s);
-	--tab-inactive-background-color-l: var(--border-color-low-l);
-	--tab-inactive-background-color: var(--border-color-low);
-	--tab-inactive-border-color: var(--border-color-medium);
-	--tab-inactive-text-color-delta-l: 33.33%;
-	--tab-inactive-text-color-l: calc(var(--tab-inactive-background-color-l) + var(--background-color-delta-l-sign) * var(--tab-inactive-text-color-delta-l));
-	--tab-inactive-text-color: hsl(var(--tab-inactive-background-color-hsl));
-	--tab-inactive-hover-background-color: var(--background-color-high);
-	--tab-active-background-color: var(--background-color-high);
-	--tab-active-text-color: #0069d6;
-	--tab-active-border-color: var(--border-color-medium);
+	--tab-bar-background-color: var(--surface);
+	--tab-inactive-background-color: var(--surface-container-low);
+	--tab-inactive-border-color: var(--outline-variant);
+	--tab-inactive-text-color: var(--on-surface-variant);
+	--tab-inactive-hover-background-color: var(--surface-container);
+	--tab-active-background-color: var(--primary-container);
+	--tab-active-text-color: var(--on-primary-container);
+	--tab-active-border-color: color-mix(in srgb, var(--primary) 34%, var(--primary-container));
 
 	margin: 0 -5px 18px;
 	padding: 0 2px;
@@ -1254,7 +1817,7 @@ a.menu:after {
 	border: 1px solid var(--tab-active-border-color);
 	border-bottom: none;
 	border-radius: 4px 4px 0 0;
-	color: var(--primary-color-high);
+	color: var(--tab-active-text-color);
 }
 
 .tabs > li > a, .cbi-tabmenu > li > a {
@@ -1284,8 +1847,8 @@ a.menu:after {
 
 .cbi-tab-disabled[data-errors]::after {
 	content: attr(data-errors);
-	background: #c43c35;
-	color: #fff;
+	background: var(--error-color-high);
+	color: var(--on-error-color);
 	height: 16px;
 	min-width: 16px;
 	border-radius: 8px;
@@ -1318,17 +1881,17 @@ a.menu:after {
 }
 
 .tabs a.menu:after, .tabs .dropdown-toggle:after {
-	border-top-color: #999;
+	border-top-color: var(--on-surface-variant);
 	margin-top: 15px;
 	margin-left: 5px;
 }
 
 .tabs li.open.menu .menu, .tabs .open.dropdown .dropdown-toggle {
-	border-color: #999;
+	border-color: var(--outline);
 }
 
 .tabs li.open a.menu:after, .tabs .dropdown.open .dropdown-toggle:after {
-	border-top-color: #555;
+	border-top-color: var(--on-surface);
 }
 
 .tab-content > .tab-pane,
@@ -2142,9 +2705,9 @@ th[data-sort-direction="desc"]::after { content: "\a0\25bc"; }
 }
 
 .cbi-section-error {
-	border: 1px solid #f00;
+	border: 1px solid var(--error-color-high);
 	border-radius: 3px;
-	background-color: #fce6e6;
+	background-color: var(--error-color-low);
 	padding: 5px;
 	margin-bottom: 18px;
 }
@@ -2152,7 +2715,7 @@ th[data-sort-direction="desc"]::after { content: "\a0\25bc"; }
 .cbi-section-error ul { margin: 0 0 0 20px; }
 
 .cbi-section-error ul li {
-	color: #f00;
+	color: var(--on-error-container);
 	font-weight: bold;
 }
 
@@ -2323,7 +2886,7 @@ th[data-sort-direction="desc"]::after { content: "\a0\25bc"; }
 div.cbi-value var,
 .td.cbi-value-field var {
 	font-style: italic;
-	color: #0069d6;
+	color: var(--primary-color-high);
 }
 
 div.cbi-value var[data-tooltip],
@@ -2331,7 +2894,7 @@ div.cbi-value var[data-tooltip],
 div.cbi-value var.cbi-tooltip-container,
 .td.cbi-value-field var.cbi-tooltip-container {
 	cursor: help;
-	border-bottom: 1px dotted #0069d6;
+	border-bottom: 1px dotted var(--primary-color-high);
 }
 
 div.cbi-value var.cbi-tooltip-container,

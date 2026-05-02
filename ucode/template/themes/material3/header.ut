@@ -43,6 +43,144 @@
 		{% endif %}
 		<script src="{{ dispatcher.build_url('admin/translations', dispatcher.lang) }}"></script>
 		<script src="{{ resource }}/cbi.js"></script>
+		<style>
+			#material3-debug-switcher {
+				position: fixed;
+				right: 16px;
+				bottom: 16px;
+				z-index: 1200;
+				font: 12px/1 var(--font-sans);
+			}
+
+			#material3-debug-switcher > button {
+				width: 42px;
+				height: 42px;
+				border-radius: 50%;
+				border: 1px solid var(--border-color-medium);
+				background: var(--primary-color-high);
+				color: var(--on-primary-color);
+				box-shadow: 0 2px 8px rgba(0, 0, 0, .22);
+			}
+
+			#material3-debug-switcher > div {
+				position: absolute;
+				right: 0;
+				bottom: 50px;
+				display: none;
+				grid-template-columns: repeat(3, 30px);
+				gap: 8px;
+				padding: 10px;
+				border: 1px solid var(--border-color-medium);
+				border-radius: 12px;
+				background: var(--background-color-high);
+				box-shadow: 0 4px 18px rgba(0, 0, 0, .22);
+			}
+
+			#material3-debug-switcher[open] > div {
+				display: grid;
+			}
+
+			#material3-debug-switcher button[data-theme],
+			#material3-debug-switcher button[data-mode] {
+				width: 30px;
+				height: 30px;
+				border: 1px solid var(--border-color-medium);
+				border-radius: 50%;
+				background: var(--debug-color, var(--background-color-low));
+				color: var(--text-color-high);
+				box-shadow: inset 0 0 0 3px var(--background-color-high);
+			}
+
+			#material3-debug-switcher button[aria-pressed="true"] {
+				border-color: var(--primary-color-high);
+				box-shadow: inset 0 0 0 3px var(--background-color-high), 0 0 0 3px color-mix(in srgb, var(--primary-color-high) 30%, transparent);
+			}
+		</style>
+		<script>
+			(function() {
+				var root = document.documentElement,
+				    themeKey = 'material3-theme-debug',
+				    modeKey = 'material3-mode-debug',
+				    savedTheme = localStorage.getItem(themeKey),
+				    savedMode = localStorage.getItem(modeKey);
+
+				if (savedTheme)
+					root.setAttribute('data-theme', savedTheme);
+
+				if (savedMode) {
+					root.setAttribute('data-mode', savedMode);
+					root.setAttribute('data-darkmode', savedMode == 'dark' ? 'true' : 'false');
+				}
+
+				document.addEventListener('DOMContentLoaded', function() {
+					var themes = [
+						['baseline', '#6750A4'],
+						['blue', '#0061A4'],
+						['green', '#006D3A'],
+						['teal', '#006A6A'],
+						['orange', '#8F4C00'],
+						['rose', '#BA1A46']
+					];
+					var switcher = document.createElement('div'),
+					    toggle = document.createElement('button'),
+					    panel = document.createElement('div');
+
+					switcher.id = 'material3-debug-switcher';
+					toggle.type = 'button';
+					toggle.textContent = 'M3';
+					toggle.title = 'Material3 debug switcher';
+					toggle.addEventListener('click', function() {
+						switcher.toggleAttribute('open');
+					});
+
+					function setPressed() {
+						var theme = root.getAttribute('data-theme') || 'baseline',
+						    mode = root.getAttribute('data-mode') || (root.getAttribute('data-darkmode') == 'true' ? 'dark' : 'light');
+
+						panel.querySelectorAll('[data-theme]').forEach(function(button) {
+							button.setAttribute('aria-pressed', button.getAttribute('data-theme') == theme ? 'true' : 'false');
+						});
+
+						panel.querySelectorAll('[data-mode]').forEach(function(button) {
+							button.setAttribute('aria-pressed', button.getAttribute('data-mode') == mode ? 'true' : 'false');
+						});
+					}
+
+					themes.forEach(function(item) {
+						var button = document.createElement('button');
+						button.type = 'button';
+						button.title = item[0];
+						button.setAttribute('data-theme', item[0]);
+						button.style.setProperty('--debug-color', item[1]);
+						button.addEventListener('click', function() {
+							root.setAttribute('data-theme', item[0]);
+							localStorage.setItem(themeKey, item[0]);
+							setPressed();
+						});
+						panel.appendChild(button);
+					});
+
+					['light', 'dark'].forEach(function(mode) {
+						var button = document.createElement('button');
+						button.type = 'button';
+						button.textContent = mode == 'dark' ? 'D' : 'L';
+						button.title = mode;
+						button.setAttribute('data-mode', mode);
+						button.addEventListener('click', function() {
+							root.setAttribute('data-mode', mode);
+							root.setAttribute('data-darkmode', mode == 'dark' ? 'true' : 'false');
+							localStorage.setItem(modeKey, mode);
+							setPressed();
+						});
+						panel.appendChild(button);
+					});
+
+					switcher.append(toggle, panel);
+					document.body.appendChild(switcher);
+					setPressed();
+				});
+			})();
+		</script>
 	</head>
 
 	<body class="lang_{{ dispatcher.lang }} {{ entityencode(striptags(node?.title ?? ''), true) }}" data-page="{{ entityencode(join('-', ctx.request_path), true) }}">
