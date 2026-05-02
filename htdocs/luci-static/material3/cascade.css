@@ -2268,23 +2268,20 @@ li.menu,
 
 .tabs,
 .cbi-tabmenu {
-	--tab-bar-background-color: var(--surface);
-	--tab-inactive-background-color: var(--surface-container-low);
-	--tab-inactive-border-color: var(--outline-variant);
+	--tab-bar-background-color: var(--material3-card-background);
 	--tab-inactive-text-color: var(--on-surface-variant);
-	--tab-inactive-hover-background-color: var(--surface-container);
+	--tab-inactive-hover-background-color: var(--material3-menu-hover-background);
 	--tab-active-background-color: var(--primary-container);
 	--tab-active-text-color: var(--on-primary-container);
-	--tab-active-border-color: color-mix(in srgb, var(--primary) 34%, var(--primary-container));
 
-	margin: 0 -5px 18px;
-	padding: 0 2px;
+	margin: 0 0 10px;
+	padding: 0;
 	list-style: none;
-	display: flex;
+	display: inline-flex;
 	flex-wrap: wrap;
-	background: linear-gradient(var(--tab-bar-background-color) 28px, var(--tab-inactive-border-color) 28px);
-	background-size: 1px 29px;
-	background-position: left bottom;
+	justify-content: center;
+	background: var(--tab-bar-background-color);
+	border-radius: var(--material3-card-radius);
 }
 
 .tabs>li,
@@ -2292,26 +2289,29 @@ li.menu,
 	flex: 0 1 auto;
 	display: flex;
 	align-items: center;
-	height: 25px;
-	max-width: 48%;
-	margin: 4px 2px 0 2px;
+	position: relative;
+	overflow: hidden;
+	height: 32px;
+	max-width: none;
+	margin: 0;
+	padding: 0;
 	background: var(--tab-active-background-color);
-	border: 1px solid var(--tab-active-border-color);
-	border-bottom: none;
-	border-radius: 4px 4px 0 0;
+	border: 0;
+	border-radius: var(--material3-card-radius);
 	color: var(--tab-active-text-color);
+	font-size: 14px;
+	white-space: nowrap;
+	transition: background-color .3s ease, color .3s ease;
 }
 
 .tabs>li>a,
 .cbi-tabmenu>li>a {
-	padding: 4px 6px;
+	padding: 0 16px;
 	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	color: inherit;
 	text-decoration: none;
-	border-radius: 4px 4px 0 0;
-	line-height: 25px;
+	border-radius: var(--material3-card-radius);
+	line-height: 32px;
 	outline: none;
 }
 
@@ -2322,13 +2322,13 @@ li.menu,
 
 .tabs>li:not(.active):hover,
 .cbi-tabmenu>.cbi-tab-disabled:hover {
-	background: linear-gradient(var(--tab-inactive-hover-background-color) 90%, var(--tab-inactive-border-color) 100%);
+	background: var(--tab-inactive-hover-background-color);
 }
 
 .tabs>li:not(.active),
 .cbi-tabmenu>.cbi-tab-disabled {
 	color: var(--tab-inactive-text-color);
-	background: linear-gradient(var(--tab-inactive-background-color) 90%, var(--tab-inactive-border-color) 100%);
+	background: transparent;
 }
 
 .cbi-tab-disabled[data-errors]::after {

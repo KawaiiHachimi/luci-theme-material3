@@ -110,7 +110,14 @@ return baseclass.extend({
 			if (link.getAttribute('href') != '#')
 				close();
 		});
-	},
+
+		document.addEventListener('click', ev => {
+			const target = ev.target.closest('.tabs > li, .cbi-tabmenu > li');
+
+			if (target)
+				this.createRipple(ev, target);
+		});
+		},
 
 	render(tree) {
 		let node = tree;

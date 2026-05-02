@@ -15,20 +15,21 @@ footer {
 
 	.tabs,
 	.cbi-tabmenu {
-		background: linear-gradient(var(--background-color-high) 20%, var(--border-color-medium) 100%);
-		background-size: 1px 34px;
-		margin-bottom: 10px;
+		background: var(--material3-card-background);
+		border-radius: var(--material3-card-radius);
+		margin: 1px 1px 10px;
 	}
 
 	.tabs>li,
 	.cbi-tabmenu>li {
-		height: 30px;
+		height: 32px;
 	}
 
 	.tabs>li>a,
 	.cbi-tabmenu>li>a {
-		padding: 0 8px;
-		line-height: 30px;
+		padding: 0 12px;
+		line-height: 32px;
+		border-radius: var(--material3-card-radius);
 	}
 
 	.table {
