@@ -118,6 +118,8 @@
 	--disabled-opacity: .7;
 	--material3-header-height: 4rem;
 	--material3-sidebar-width: 256px;
+	--material3-content-max-width: 1180px;
+	--material3-content-gutter: max(18px, calc((100vw - var(--material3-sidebar-width) - var(--material3-content-max-width)) / 2));
 	--material3-shell-background: var(--surface);
 	--material3-shell-foreground: var(--on-surface);
 	--material3-shell-state: var(--surface-container);
@@ -927,11 +929,13 @@ body {
 
 #maincontent {
 	box-sizing: border-box;
-	margin-left: var(--material3-sidebar-width);
+	margin-left: calc(var(--material3-sidebar-width) + var(--material3-content-gutter));
+	margin-right: var(--material3-content-gutter);
 	padding: 18px;
 	overflow-x: hidden;
 	min-height: calc(100vh - var(--material3-header-height));
 	width: auto;
+	max-width: none;
 	background: var(--material3-shell-background);
 }
 
@@ -1826,7 +1830,15 @@ header.with-shadow {
 @media screen and (max-width: 854px) {
 	#maincontent {
 		margin-left: 0;
+		margin-right: 0;
+		max-width: none;
 		padding: 12px;
+	}
+
+	footer {
+		width: 100%;
+		padding-left: 12px;
+		padding-right: 12px;
 	}
 
 	header {
@@ -2330,6 +2342,7 @@ li.menu, .dropdown {
 footer {
 	padding-top: 17px;
 	margin-top: auto;
+	box-sizing: border-box;
 	border-top: 1px solid var(--border-color-low);
 	display: flex;
 	flex-wrap: wrap;
@@ -2337,10 +2350,8 @@ footer {
 	justify-content: space-between;
 	font-size: 12px;
 	color: var(--text-color-medium);
-	/* the redundant properties below work around a csstidy bug */
-	/* Match footer with header padding left and right so they are aligned (header uses 1180px, but footer was using 940px) */ 
-	padding-left: calc((100% - 1180px) / 2);
-	padding-right: calc((100% - 1180px) / 2);
+	padding-left: calc(var(--material3-sidebar-width) + var(--material3-content-gutter));
+	padding-right: var(--material3-content-gutter);
 }
 
 footer a {
