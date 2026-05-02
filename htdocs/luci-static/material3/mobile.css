@@ -1,4 +1,4 @@
-header h3 a, header .brand {
+header h3 a {
 	display:none !important;
 }
 
@@ -280,10 +280,43 @@ header h3 a, header .brand {
 
 	header .pull-right {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		align-items: center;
+		gap: 4px;
 		padding: 0;
-		justify-content: space-around;
+		justify-content: flex-end;
 		margin: .2em 5px .2em auto;
+	}
+
+	header [data-indicator] {
+		width: 2.5rem;
+		height: 2.5rem;
+		padding: 0;
+		margin: 0 4px;
+		font-size: 0;
+		border-radius: 50%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		white-space: nowrap;
+		line-height: 16px;
+	}
+
+	header [data-indicator="poll-status"]::before {
+		position: absolute;
+		inset: 0;
+		margin: auto;
+		width: 24px;
+		height: 24px;
+	}
+
+	header [data-indicator="uci-changes"]::before {
+		position: absolute;
+		inset: 0;
+		margin: auto;
+		width: 20px;
+		height: 20px;
 	}
 
 	.menu-dropdown, .dropdown-menu {

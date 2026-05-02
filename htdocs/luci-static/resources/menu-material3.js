@@ -5,6 +5,111 @@
 return baseclass.extend({
 	__init__() {
 		ui.menu.load().then((tree) => this.render(tree));
+		this.initNavigationShell();
+	},
+
+	createRipple(ev, target) {
+		const oldRipple = target.querySelector('.ripple');
+
+		if (oldRipple)
+			oldRipple.remove();
+
+		const rect = target.getBoundingClientRect();
+		const ripple = E('span', { 'class': 'ripple' });
+
+		ripple.style.left = '%dpx'.format(ev.clientX - rect.left);
+		ripple.style.top = '%dpx'.format(ev.clientY - rect.top);
+		target.appendChild(ripple);
+		ripple.addEventListener('animationend', () => ripple.remove());
+	},
+
+	toggleDropdown(li) {
+		const submenu = Array.prototype.find.call(li.children, child => child.classList.contains('dropdown-menu'));
+
+		if (!submenu)
+			return;
+
+		if (li.classList.contains('open')) {
+			submenu.style.height = '%dpx'.format(submenu.scrollHeight);
+			submenu.offsetHeight;
+			li.classList.remove('open');
+			submenu.style.height = '0px';
+		}
+		else {
+			this.closeOtherMenus(li);
+			li.classList.add('open');
+			submenu.style.height = '%dpx'.format(submenu.scrollHeight);
+		}
+	},
+
+	closeOtherMenus(currentMenu) {
+		document.querySelectorAll('#topmenu > li.open').forEach(menu => {
+			if (menu === currentMenu)
+				return;
+
+			const submenu = menu.querySelector('.dropdown-menu');
+
+			if (!submenu)
+				return;
+
+			submenu.style.height = '%dpx'.format(submenu.scrollHeight);
+			submenu.offsetHeight;
+			submenu.style.height = '0px';
+			menu.classList.remove('open');
+		});
+	},
+
+	initNavigationShell() {
+		const button = document.querySelector('.menu-btn');
+		const sidebar = document.querySelector('.sidebar');
+		const overlay = document.querySelector('.sidebar-overlay');
+		const header = document.querySelector('header');
+
+		if (header) {
+			window.addEventListener('scroll', () => {
+				header.classList.toggle('with-shadow', window.scrollY > 8);
+			});
+		}
+
+		if (!button || !sidebar || !overlay)
+			return;
+
+		const close = () => {
+			sidebar.classList.remove('active');
+			overlay.classList.remove('active');
+			button.classList.remove('active');
+			document.body.style.overflow = '';
+			button.setAttribute('aria-expanded', 'false');
+		};
+
+		button.addEventListener('click', () => {
+			sidebar.classList.toggle('active');
+			overlay.classList.toggle('active');
+			const isOpen = sidebar.classList.contains('active');
+
+			button.classList.toggle('active', isOpen);
+			document.body.style.overflow = isOpen ? 'hidden' : '';
+			button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+		});
+
+		overlay.addEventListener('click', close);
+
+		document.addEventListener('keydown', ev => {
+			if (ev.key == 'Escape')
+				close();
+		});
+
+		sidebar.addEventListener('click', ev => {
+			const link = ev.target.closest('a[href]');
+
+			if (!link)
+				return;
+
+			this.createRipple(ev, link);
+
+			if (link.getAttribute('href') != '#')
+				close();
+		});
 	},
 
 	render(tree) {
@@ -63,16 +168,42 @@ return baseclass.extend({
 
 		children.forEach(child => {
 			const submenu = this.renderMainMenu(child, url + '/' + child.name, (level || 0) + 1);
-			const subclass = (!level && submenu.firstElementChild) ? 'dropdown' : '';
-			const linkclass = (!level && submenu.firstElementChild) ? 'menu' : '';
-			const linkurl = submenu.firstElementChild ? '#' : L.url(url, child.name);
+			const itemPath = (url + '/' + child.name).replace(/^\/+/, '');
+			const currentPath = L.env.requestpath.join('/');
+			const isActive = currentPath == itemPath || currentPath.indexOf(itemPath + '/') == 0;
+			const hasSubmenu = !!submenu.firstElementChild;
+			const subclass = [
+				hasSubmenu ? 'dropdown' : '',
+				isActive ? 'active' : '',
+				(!level && hasSubmenu && isActive) ? 'open' : ''
+			].filter(Boolean).join(' ');
+			const linkclass = (!level && hasSubmenu) ? 'menu' : '';
+			const linkurl = hasSubmenu ? '#' : L.url(url, child.name);
+			const attrs = {
+				'class': subclass,
+				'data-path': itemPath
+			};
+			const linkAttrs = {
+				'class': linkclass,
+				'href': linkurl
+			};
 
-			const li = E('li', { 'class': subclass }, [
-				E('a', { 'class': linkclass, 'href': linkurl }, [
+			if (!level && hasSubmenu) {
+				linkAttrs.click = ev => {
+					ev.preventDefault();
+					this.toggleDropdown(ev.currentTarget.parentNode);
+				};
+			}
+
+			const li = E('li', attrs, [
+				E('a', linkAttrs, [
 					_(child.title),
 				]),
 				submenu
 			]);
+
+			if (!level && hasSubmenu && isActive)
+				submenu.style.height = 'auto';
 
 			ul.appendChild(li);
 		});

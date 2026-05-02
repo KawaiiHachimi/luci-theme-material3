@@ -186,10 +186,17 @@
 	<body class="lang_{{ dispatcher.lang }} {{ entityencode(striptags(node?.title ?? ''), true) }}" data-page="{{ entityencode(join('-', ctx.request_path), true) }}">
 		{% if (!blank_page): %}
 		<header>
+			<button class="menu-btn" type="button" aria-label="{{ _('Toggle navigation menu') }}" aria-expanded="false">
+				<span></span>
+			</button>
 			<a class="brand" href="/">{{ striptags(boardinfo.hostname ?? '?') }}</a>
-			<ul class="nav" id="topmenu" style="display:none"></ul>
 			<div id="indicators" class="pull-right"></div>
 		</header>
+
+		<aside class="sidebar" aria-label="{{ _('Navigation') }}">
+			<ul class="nav" id="topmenu" style="display:none"></ul>
+		</aside>
+		<div class="sidebar-overlay"></div>
 
 		<div id="maincontent" class="container">
 			{% if (getuid() == 0 && getspnam('root')?.pwdp === ''): %}
