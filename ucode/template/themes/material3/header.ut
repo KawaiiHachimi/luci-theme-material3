@@ -9,7 +9,7 @@
 	import { getuid, getspnam } from 'luci.core';
 
 	const boardinfo = ubus.call('system', 'board');
-	const darkpref = (theme == 'bootstrap-dark' ? 'true' : (theme == 'bootstrap-light' ? 'false' : null));
+	const darkpref = (theme == 'material3-dark' ? 'true' : (theme == 'material3-light' ? 'false' : null));
 
 	http.prepare_content('text/html; charset=UTF-8');
 -%}

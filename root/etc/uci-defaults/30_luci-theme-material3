@@ -12,14 +12,14 @@ set_opt() {
 	fi
 }
 
-set_opt themes.Bootstrap /luci-static/bootstrap
+set_opt themes.Material3 /luci-static/material3
 
 if [ "$PKG_UPGRADE" != 1 ] && [ $changed = 1 ]; then
-	set_opt main.mediaurlbase /luci-static/bootstrap
+	set_opt main.mediaurlbase /luci-static/material3
 fi
 
-set_opt themes.BootstrapDark /luci-static/bootstrap-dark
-set_opt themes.BootstrapLight /luci-static/bootstrap-light
+set_opt themes.Material3Dark /luci-static/material3-dark
+set_opt themes.Material3Light /luci-static/material3-light
 
 if [ $changed = 1 ]; then
 	uci commit luci
