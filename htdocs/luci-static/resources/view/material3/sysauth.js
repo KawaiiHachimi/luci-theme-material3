@@ -13,6 +13,11 @@ return view.extend({
 			'login'
 		);
 
+		const overlay = document.getElementById('modal_overlay');
+
+		if (overlay)
+			overlay.classList.add('login-overlay');
+
 		form.addEventListener('keypress', (ev) => {
 			if (ev.key === 'Enter')
 				btn.click();

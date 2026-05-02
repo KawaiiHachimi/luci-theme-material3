@@ -44,7 +44,6 @@ footer {
 		flex-direction: row;
 		flex-wrap: wrap;
 		align-items: flex-end;
-		border-top: 1px solid var(--border-color-medium);
 		padding: 5px 0;
 		margin: 0 -3px;
 	}
@@ -219,7 +218,6 @@ footer {
 
 	.cbi-value {
 		padding-bottom: .5em;
-		border-bottom: 1px solid var(--border-color-high);
 		margin-bottom: .5em;
 		display: block;
 		align-items: baseline;

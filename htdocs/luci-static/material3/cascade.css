@@ -912,8 +912,7 @@ textarea {
 
 .control-group>input+ :not(input):not(select),
 .control-group>select+ :not(input):not(select) {
-	margin-left: calc(-.2em + -2px);
-	padding: 0 6px;
+	padding: 0 8px;
 }
 
 /*
@@ -948,7 +947,7 @@ body {
 	margin-left: calc(var(--material3-sidebar-width) + var(--material3-content-gutter));
 	margin-right: var(--material3-content-gutter);
 	padding: 18px;
-	overflow-x: hidden;
+	overflow-x: auto;
 	min-height: calc(100vh - var(--material3-header-height));
 	width: auto;
 	max-width: none;
@@ -1030,7 +1029,9 @@ h1 small {
 }
 
 h2 {
+	margin-bottom: 18px;
 	font-size: 24px;
+	font-weight: 350;
 	line-height: 36px;
 }
 
@@ -1049,10 +1050,18 @@ h6 {
 h3,
 legend {
 	font-size: 18px;
+	font-weight: 350;
+	color: var(--on-surface);
 }
 
 h3 small {
 	font-size: 14px;
+}
+
+.cbi-title h3 {
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 12px;
 }
 
 h4 {
@@ -1314,8 +1323,8 @@ select,
 	top: -1px;
 	right: -1px;
 	bottom: -1px;
-	padding: 0 6px;
-	border: 1px solid var(--border-color-high);
+	padding: 0 8px;
+	border: 0;
 	border-radius: 0 var(--material3-control-radius) var(--material3-control-radius) 0;
 	font-weight: bold;
 	color: var(--error-color-high);
@@ -1589,7 +1598,7 @@ input[type="radio"][disabled]::after {
 input[readonly],
 select[readonly],
 textarea[readonly] {
-	border-color: hsla(var(--border-color-high-hsl), var(--disabled-opacity));
+	border-color: color-mix(in srgb, var(--border-color-high) 82%, var(--background-color-high));
 	pointer-events: auto;
 	cursor: auto;
 }
@@ -1680,6 +1689,9 @@ textarea[readonly] {
 	vertical-align: middle;
 	/* Fixme */
 	padding: 10px 10px 9px;
+	color: var(--on-surface-variant);
+	font-size: 13px;
+	font-weight: 400;
 	line-height: 18px;
 	text-align: left;
 }
@@ -1692,7 +1704,7 @@ textarea[readonly] {
 
 .table .td,
 .table .th {
-	border-top: 1px solid var(--border-color-medium);
+	border-top: 0;
 }
 
 .table .tr:first-child .td,
@@ -2455,7 +2467,7 @@ footer ul.breadcrumb {
 	position: fixed;
 	top: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.7);
+	background: rgba(0, 0, 0, .1);
 	z-index: 900;
 	overflow: auto;
 	transition: opacity .125s ease-in;
@@ -2468,12 +2480,14 @@ footer ul.breadcrumb {
 	margin: 5em auto;
 	min-height: 32px;
 	max-width: 600px;
-	border-radius: 3px;
-	background: var(--background-color-high);
+	border-radius: var(--material3-card-radius);
+	background: color-mix(in srgb, var(--background-color-high) 94%, transparent);
 	border: 1px solid var(--border-color-low);
 	box-shadow: 0 0 3px var(--background-color-low);
 	padding: 1em 1em .5em 1em;
 	min-width: 270px;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
 }
 
 .modal>* {
@@ -2513,6 +2527,155 @@ body.modal-overlay-active #modal_overlay {
 	right: 0;
 	opacity: 1;
 	visibility: visible;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}
+
+#modal_overlay.login-overlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	background:
+		radial-gradient(circle at top left, color-mix(in srgb, var(--primary-container) 64%, transparent), transparent 34rem),
+		radial-gradient(circle at top right, color-mix(in srgb, var(--tertiary-container) 58%, transparent), transparent 30rem),
+		var(--background);
+}
+
+#modal_overlay>.modal.login {
+	width: 100%;
+	min-width: 0;
+	max-width: 420px;
+	margin: 0;
+	padding: 32px;
+	border: 0;
+	border-radius: 28px;
+	background: var(--material3-card-background);
+	box-shadow: var(--material3-card-shadow);
+	color: var(--on-surface);
+}
+
+#modal_overlay>.modal.login>h4 {
+	display: none;
+}
+
+.modal.login .material3-login-header {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 28px;
+}
+
+.modal.login .material3-login-header img {
+	width: 72px;
+	height: 72px;
+	flex: 0 0 auto;
+}
+
+.modal.login .material3-login-header h2 {
+	margin: 0;
+	font-size: 24px;
+	font-weight: 450;
+	line-height: 1.25;
+	color: var(--on-surface);
+}
+
+.modal.login .material3-login-header p {
+	margin: 4px 0 0;
+	color: var(--on-surface-variant);
+}
+
+.modal.login .cbi-map,
+.modal.login .cbi-section,
+.modal.login .cbi-section-node {
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+}
+
+.modal.login .cbi-value {
+	display: block;
+	margin-bottom: 16px;
+}
+
+.modal.login .cbi-value label.cbi-value-title {
+	display: block;
+	flex: none;
+	padding: 0;
+	margin-bottom: 8px;
+	text-align: left;
+	color: var(--on-surface-variant);
+	font-weight: 450;
+}
+
+.modal.login .cbi-value-field {
+	margin-left: 0;
+}
+
+.modal.login input {
+	width: 100%;
+	height: 44px;
+	padding: 0 16px;
+	background: var(--surface);
+	border-color: color-mix(in srgb, var(--outline-variant) 72%, var(--surface));
+	color: var(--on-surface);
+}
+
+.modal.login input:focus {
+	border-color: var(--primary) !important;
+	box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.modal.login hr {
+	display: none;
+}
+
+.modal.login .alert-message {
+	margin: 2px 0 18px;
+	padding: 10px 14px;
+	border: 0;
+	border-radius: 16px;
+	background: var(--surface-container);
+	color: var(--on-surface);
+	box-shadow: none;
+	white-space: normal;
+}
+
+.modal.login .alert-message.error {
+	background: var(--error-container);
+	color: var(--on-error-container);
+}
+
+.modal.login .alert-message.warning {
+	background: var(--warning-container);
+	color: var(--on-warning-container);
+}
+
+@media screen and (max-width: 480px) {
+	#modal_overlay.login-overlay {
+		padding: 16px;
+	}
+
+	#modal_overlay>.modal.login {
+		padding: 24px;
+		border-radius: 24px;
+	}
+
+	.modal.login .material3-login-header {
+		gap: 12px;
+		margin-bottom: 24px;
+	}
+
+	.modal.login .material3-login-header img {
+		width: 48px;
+		height: 48px;
+	}
+
+	.modal.login .material3-login-header h2 {
+		font-size: 21px;
+	}
 }
 
 .btn .close,
@@ -2531,9 +2694,9 @@ body.modal-overlay-active #modal_overlay {
 .alert-message.danger,
 .alert-message.error,
 .cbi-tooltip.error {
-	background: linear-gradient(var(--error-color-low), var(--error-color-medium));
-	color: var(--on-error-color);
-	border-color: var(--error-color-high) var(--error-color-high) var(--error-color-low);
+	background: var(--error-container);
+	color: var(--on-error-container);
+	border-color: color-mix(in srgb, var(--error) 28%, var(--error-container));
 }
 
 .btn.success {
@@ -2544,9 +2707,9 @@ body.modal-overlay-active #modal_overlay {
 
 .alert-message.success,
 .cbi-tooltip.success {
-	background: linear-gradient(var(--success-color-low), var(--success-color-medium));
-	color: var(--on-error-color);
-	border-color: var(--success-color-high) var(--success-color-high) var(--success-color-low);
+	background: var(--success-container);
+	color: var(--on-success-container);
+	border-color: color-mix(in srgb, var(--success) 28%, var(--success-container));
 }
 
 .btn.info {
@@ -2557,22 +2720,22 @@ body.modal-overlay-active #modal_overlay {
 
 .alert-message.info,
 .cbi-tooltip.info {
-	background: linear-gradient(var(--primary-color-low), var(--primary-color-medium));
-	color: var(--on-primary-color);
-	border-color: var(--primary-color-high) var(--primary-color-high) var(--primary-color-low);
+	background: var(--primary-container);
+	color: var(--on-primary-container);
+	border-color: color-mix(in srgb, var(--primary) 28%, var(--primary-container));
 }
 
 .alert-message.notice,
 .cbi-tooltip.notice {
-	background: linear-gradient(var(--background-color-low), var(--background-color-medium));
-	border-color: var(--background-color-high) var(--background-color-high) var(--background-color-low);
-	color: var(--text-color-high);
+	background: var(--surface-container);
+	border-color: var(--outline-variant);
+	color: var(--on-surface);
 }
 
 .alert-message.warning {
-	background: linear-gradient(var(--warn-color-low), var(--warn-color-medium));
-	border-color: var(--warn-color-high) var(--warn-color-high) var(--warn-color-low);
-	color: var(--on-warn-color);
+	background: var(--warning-container);
+	border-color: color-mix(in srgb, var(--warning) 28%, var(--warning-container));
+	color: var(--on-warning-container);
 }
 
 .modal.alert-message {
@@ -2721,7 +2884,7 @@ body.modal-overlay-active #modal_overlay {
 }
 
 .cbi-dropdown:not(.btn):not(.cbi-button) {
-	background: linear-gradient(var(--background-color-high) 0%, var(--border-color-low) 100%);
+	background: var(--background-color-high);
 	border: 1px solid var(--border-color-high);
 	border-radius: var(--material3-control-radius);
 	color: var(--text-color-high);
@@ -2837,7 +3000,9 @@ body.modal-overlay-active #modal_overlay {
 }
 
 .cbi-dropdown>ul>li input[type="text"] {
-	height: 20px;
+	height: 30px;
+	border: 0;
+	border-radius: 6px;
 }
 
 .cbi-dropdown[open] {
@@ -2846,9 +3011,9 @@ body.modal-overlay-active #modal_overlay {
 
 .cbi-dropdown[open]>ul.dropdown {
 	display: block;
-	background: var(--background-color-low);
-	border: 1px solid #918e8c;
-	box-shadow: 0 0 4px #918e8c;
+	background: var(--surface-container-low);
+	border: 0;
+	box-shadow: var(--material3-card-shadow);
 	position: absolute;
 	z-index: 1100;
 	max-width: none;
@@ -2856,6 +3021,8 @@ body.modal-overlay-active #modal_overlay {
 	width: auto;
 	transition: max-height .125s ease-in;
 	overflow-y: auto;
+	border-radius: 6px;
+	left: 0 !important;
 }
 
 .cbi-dropdown>ul>li[display],
@@ -2888,23 +3055,26 @@ body.modal-overlay-active #modal_overlay {
 }
 
 .cbi-dropdown[open]>ul.dropdown>li {
-	border-bottom: 1px solid var(--border-color-high);
+	border: 0;
+	padding: 8px;
+	color: var(--on-surface);
 }
 
 .cbi-dropdown[open]>ul.dropdown>li[selected] {
-	background: var(--primary-color-medium);
-	color: var(--on-primary-color);
+	background: var(--primary-container);
+	color: var(--on-primary-container);
 }
 
 .cbi-dropdown[open]>ul.dropdown>li.focus,
 .cbi-dropdown[open]>ul.dropdown>li:hover {
-	background: var(--primary-color-low);
-	color: var(--on-primary-color);
+	background: var(--material3-menu-hover-background);
+	color: var(--on-surface);
 }
 
 .cbi-dropdown[open]>ul.dropdown>li[selected].focus,
 .cbi-dropdown[open]>ul.dropdown>li[selected]:hover {
-	background: linear-gradient(90deg, var(--primary-color-medium) 50%, var(--primary-color-low));
+	background: color-mix(in srgb, var(--primary) 12%, var(--primary-container));
+	color: var(--on-primary-container);
 }
 
 .cbi-dropdown[open]>ul.dropdown>li:last-child {
@@ -2952,7 +3122,6 @@ body.modal-overlay-active #modal_overlay {
 }
 
 .cbi-progressbar {
-	border: 1px solid var(--border-color-high);
 	border-radius: 3px;
 	position: relative;
 	min-width: 170px;
@@ -3058,14 +3227,13 @@ body.modal-overlay-active #modal_overlay {
 
 .alert-message {
 	position: relative;
-	padding: .5em .5em .25em .5em;
-	margin-bottom: .5em;
-	color: var(--on-warn-color);
-	background: linear-gradient(#fceec1, #eedc94);
-	border: 1px solid var(--border-color-low);
-	border-color: var(--border-color-high) var(--border-color-high) var(--border-color-low);
-	border-radius: 4px;
-	box-shadow: 1px 1px 1px var(--border-color-low);
+	padding: 10px 14px;
+	margin-bottom: 12px;
+	color: var(--on-warning-container);
+	background: var(--warning-container);
+	border: 1px solid color-mix(in srgb, var(--warning) 28%, var(--warning-container));
+	border-radius: 16px;
+	box-shadow: none;
 	white-space: unset;
 }
 
@@ -3277,7 +3445,7 @@ form.inline {
 .cbi-section-table .tr:hover .td,
 .cbi-section-table .tr:hover .th,
 .cbi-section-table .tr:hover::before {
-	background-color: var(--background-color-low);
+	background-color: transparent;
 }
 
 .cbi-section-table .tr.cbi-section-table-descr .th {
@@ -3296,7 +3464,7 @@ form.inline {
 .cbi-section-table-titles.named::before,
 .cbi-section-table-descr.named::before,
 .cbi-section-table-row[data-title]::before {
-	border-top: 1px solid var(--border-color-medium);
+	border-top: 0;
 }
 
 .left {
@@ -3375,7 +3543,7 @@ table table td,
 .cbi-rowstyle-2,
 .tr.table-titles,
 .tr.cbi-section-table-titles {
-	background: var(--background-color-medium);
+	background: transparent;
 }
 
 th[data-sortable-row] {
@@ -3482,12 +3650,12 @@ th[data-sort-direction="desc"]::after {
 	display: inline-block;
 	flex-direction: row;
 	border: 1px solid var(--border-color-high);
-	padding: 2px;
-	background: linear-gradient(var(--background-color-high), var(--background-color-high) 25%, var(--background-color-medium));
-	color: var(--text-color-high);
-	text-shadow: 0 1px 1px hsla(var(--background-color-high-hsl), 0.75);
-	border-radius: 4px;
-	box-shadow: inset 0 1px 0 hsla(var(--background-color-high-hsl), 0.05);
+	padding: 2px 8px;
+	background: var(--default-btn-background, var(--background-color-high));
+	color: var(--on-color, var(--text-color-high));
+	text-shadow: none;
+	border-radius: 16px;
+	box-shadow: none;
 	cursor: default;
 	line-height: 1.2em;
 }
@@ -3620,9 +3788,28 @@ div.cbi-value var.cbi-tooltip-container,
 }
 
 #modal_overlay>.modal.login>button.important {
-	font-size: 120% !important;
-	margin-top: .5em;
+	height: 44px;
+	margin-top: 8px;
 	width: 100%;
+	background: var(--primary);
+	border-color: var(--primary);
+	color: var(--on-primary);
+	font-size: 14px !important;
+	font-weight: 600;
+	line-height: 44px;
+	box-shadow: none;
+}
+
+#modal_overlay>.modal.login>button.important:hover {
+	background: var(--button-hover);
+	border-color: var(--button-hover) !important;
+	color: var(--on-primary);
+	box-shadow: none;
+}
+
+#modal_overlay>.modal.login>button.important:active {
+	background: var(--button-pressed);
+	border-color: var(--button-pressed) !important;
 }
 
 .uci-change-list {
@@ -3945,7 +4132,6 @@ body[data-page="admin-status-overview"] .cbi-section {
 
 body[data-page="admin-status-overview"] h2[name="content"] {
 	margin-bottom: 18px;
-	font-weight: 350 !important;
 }
 
 body[data-page="admin-status-overview"] .cbi-title h3 {
@@ -3954,7 +4140,6 @@ body[data-page="admin-status-overview"] .cbi-title h3 {
 	margin: 0 0 12px;
 	color: var(--on-surface);
 	font-size: 18px;
-	font-weight: 350 !important;
 	line-height: 36px;
 }
 
@@ -4073,8 +4258,8 @@ body[data-page="admin-status-overview"] .ifacebadge.large,
 body[data-page="admin-status-overview"] .network-status-table .ifacebox-body .ifacebadge {
 	padding: 8px;
 	border: 1px solid color-mix(in srgb, var(--outline) 48%, transparent);
-	border-radius: var(--material3-card-radius);
-	background: var(--material3-card-background);
+	border-radius: 16px;
+	background: var(--default-btn-background, var(--background-color-high));
 	box-shadow: none;
 	text-shadow: none;
 }
@@ -4111,29 +4296,29 @@ body[data-page="admin-status-overview"] .tr.cbi-section-table-titles {
 }
 
 /* Dashboard cards */
-body[data-page="admin-dashboard"] .cbi-section,
-body[data-page="admin-dashboard"] .cbi-section-node {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .cbi-section,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .cbi-section-node {
 	border: 0;
 	background: transparent;
 	box-shadow: none;
 }
 
-body[data-page="admin-dashboard"] .Dashboard .dashboard-bg.box-s1 {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .dashboard-bg.box-s1 {
 	border: 0;
 	border-radius: var(--material3-card-radius);
 	background: var(--material3-card-background);
 	box-shadow: var(--material3-card-shadow);
 }
 
-body[data-page="admin-dashboard"] .Dashboard .thead.dashboard-bg,
-body[data-page="admin-dashboard"] .Dashboard .tr.dashboard-bg,
-body[data-page="admin-dashboard"] .Dashboard .tfoot.dashboard-bg {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .thead.dashboard-bg,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .tr.dashboard-bg,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .tfoot.dashboard-bg {
 	border-radius: 0;
 	background: transparent;
 	box-shadow: none;
 }
 
-body[data-page="admin-dashboard"] .Dashboard .table {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .table {
 	margin: 0;
 	width: auto;
 	border-radius: 0;
@@ -4141,30 +4326,30 @@ body[data-page="admin-dashboard"] .Dashboard .table {
 	box-shadow: none;
 }
 
-body[data-page="admin-dashboard"] .Dashboard hr,
-body[data-page="admin-dashboard"] .Dashboard .table .td,
-body[data-page="admin-dashboard"] .Dashboard .table .th {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard hr,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .table .td,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .table .th {
 	border: 0;
 }
 
-body[data-page="admin-dashboard"] .Dashboard h3,
-body[data-page="admin-dashboard"] .Dashboard .settings-info,
-body[data-page="admin-dashboard"] .Dashboard .table .td,
-body[data-page="admin-dashboard"] .Dashboard .table .th {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard h3,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .settings-info,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .table .td,
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .table .th {
 	color: var(--on-surface-variant);
 }
 
-body[data-page="admin-dashboard"] .Dashboard .cbi-progressbar {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .cbi-progressbar {
 	border: 0;
 	background: var(--surface-container-high);
 	box-shadow: none;
 }
 
-body[data-page="admin-dashboard"] .Dashboard .cbi-progressbar>div {
+:is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .cbi-progressbar>div {
 	background: var(--primary);
 }
 
-[data-darkmode="true"] body[data-page="admin-dashboard"] .Dashboard img.svgmonotone,
-[data-mode="dark"] body[data-page="admin-dashboard"] .Dashboard img.svgmonotone {
+[data-darkmode="true"] :is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard img.svgmonotone,
+[data-mode="dark"] :is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard img.svgmonotone {
 	filter: invert(1) brightness(1.65) contrast(.82) opacity(.86);
 }

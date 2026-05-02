@@ -6,6 +6,14 @@
 {% include('header', { blank_page: true }) %}
 
 <section hidden>
+	<div class="material3-login-header">
+		<img src="{{ media }}/logo.svg" alt="">
+		<div>
+			<h2>{{ _('Authorization Required') }}</h2>
+			<p>{{ _('Sign in to manage this device.') }}</p>
+		</div>
+	</div>
+
 	<form method="post" class="cbi-map">
 		<div class="cbi-section">
 			<div class="cbi-section-node">
