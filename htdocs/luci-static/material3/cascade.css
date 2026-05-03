@@ -912,7 +912,7 @@ textarea {
 
 .control-group>input+ :not(input):not(select),
 .control-group>select+ :not(input):not(select) {
-	padding: 0 8px;
+	padding: 0 10px;
 }
 
 /*
@@ -1383,7 +1383,7 @@ select,
 .cbi-select {
 	padding: 0;
 	position: relative;
-	background: linear-gradient(var(--background-color-high), var(--border-color-low));
+	background: var(--background-color-high);
 }
 
 .cbi-select select,
@@ -1408,7 +1408,7 @@ select,
 	bottom: 0;
 	content: "▾";
 	padding: 0 .3em;
-	background: linear-gradient(var(--background-color-high), var(--border-color-low));
+	background: var(--background-color-high);
 	pointer-events: none;
 	border-radius: 0 var(--material3-control-radius) var(--material3-control-radius) 0;
 	display: flex;
@@ -1482,7 +1482,7 @@ input[type="radio"]::before {
 	left: 0;
 	width: 14px;
 	height: 14px;
-	background: linear-gradient(var(--background-color-high), var(--background-color-low));
+	background: var(--background-color-high);
 	border: 1px solid var(--bd-color);
 	border-radius: 2px;
 }
@@ -1605,7 +1605,7 @@ textarea[readonly] {
 
 .cbi-optionals,
 .cbi-section-create {
-	padding: 0 0 10px 10px;
+	padding: 10px;
 }
 
 .cbi-section-create {
@@ -2262,7 +2262,6 @@ li.menu,
 	background-image: none;
 	color: var(--on-surface);
 	text-decoration: none;
-	box-shadow: inset 0 1px 0 color-mix(in srgb, var(--outline) 6%, transparent), inset 0 -1px color-mix(in srgb, var(--outline) 6%, transparent);
 }
 
 .dropdown:hover ul.dropdown-menu {
@@ -2286,7 +2285,7 @@ li.menu,
 	--tab-active-background-color: var(--primary-container);
 	--tab-active-text-color: var(--on-primary-container);
 
-	margin: 0 0 10px;
+	margin: 5px 0;
 	padding: 0;
 	list-style: none;
 	display: inline-flex;
@@ -2408,7 +2407,7 @@ li.menu,
 .breadcrumb {
 	padding: 7px 14px;
 	margin: 0 0 18px;
-	background: linear-gradient(to bottom, var(--background-color-high), var(--background-color-low));
+	background: var(--background-color-low);
 	border: 1px solid var(--border-color-medium);
 	border-radius: 3px;
 	display: flex;
@@ -2742,9 +2741,9 @@ body.modal-overlay-active #modal_overlay {
 	color: var(--text-color-high);
 }
 
-.item::after,
 .btn,
-.cbi-button {
+.cbi-button,
+.cbi-button-add {
 	--default-btn-background: var(--background-color-high);
 	--on-color: var(--text-color-high);
 
@@ -2927,11 +2926,33 @@ body.modal-overlay-active #modal_overlay {
 	flex-grow: 0;
 	flex-shrink: 0;
 	display: flex;
-	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 	text-align: center;
 	line-height: 2em;
-	padding: 0 .3em;
+	padding: 0 .5em;
+}
+
+.cbi-dropdown>.open {
+	color: transparent;
+	overflow: hidden;
+	text-indent: -9999px;
+	user-select: none;
+}
+
+.cbi-dropdown>.open::before {
+	content: "";
+	width: 5px;
+	height: 5px;
+	border-right: 1px solid var(--on-surface-variant);
+	border-bottom: 1px solid var(--on-surface-variant);
+	transform: translateY(-1px) rotate(45deg);
+	transition: transform .2s ease;
+	text-indent: 0;
+}
+
+.cbi-dropdown[open]>.open::before {
+	transform: translateY(1px) rotate(225deg);
 }
 
 .cbi-dropdown.btn>.open,
@@ -2939,6 +2960,12 @@ body.modal-overlay-active #modal_overlay {
 	padding: 0 .5em;
 	margin-left: .5em;
 	border-left: 1px solid;
+	border-left-color: color-mix(in srgb, var(--on-color, currentColor) 35%, transparent);
+}
+
+.cbi-dropdown.btn>.open::before,
+.cbi-dropdown.cbi-button>.open::before {
+	border-color: var(--on-color, currentColor);
 }
 
 .cbi-dropdown>.more,
@@ -3602,8 +3629,8 @@ th[data-sort-direction="desc"]::after {
 	margin: 0 10px;
 	text-align: center;
 	white-space: nowrap;
-	background: linear-gradient(var(--background-color-high), var(--background-color-medium));
-	border-radius: 4px;
+	background: var(--background-color-high);
+	border-radius: 12px;
 	box-shadow: inset 0 1px 0 hsla(var(--text-color-low-hsl), 0.05);
 	display: inline-flex;
 	flex-direction: column;
@@ -3613,7 +3640,7 @@ th[data-sort-direction="desc"]::after {
 
 .ifacebox .ifacebox-head {
 	border-bottom: 1px solid var(--border-color-high);
-	border-radius: 3px 3px 0 0;
+	border-radius: 11px 11px 0 0;
 	padding: 2px;
 	background: #eee;
 	color: var(--text-color-high);
@@ -3630,7 +3657,7 @@ th[data-sort-direction="desc"]::after {
 
 [data-darkmode="true"] .zonebadge[style],
 [data-darkmode="true"] .ifacebox-head[style] {
-	background: linear-gradient(rgba(var(--zone-color-rgb), .4), rgba(var(--zone-color-rgb), .3)) !important;
+	background: rgba(var(--zone-color-rgb), .36) !important;
 }
 
 .ifacebox .ifacebox-body {
@@ -3733,7 +3760,7 @@ th[data-sort-direction="desc"]::after {
 
 .zonebadge {
 	padding: 2px;
-	border-radius: 4px;
+	border-radius: 12px;
 	display: inline-block;
 	white-space: nowrap;
 	color: var(--text-color-high);
@@ -3922,7 +3949,7 @@ div.cbi-value var.cbi-tooltip-container,
 }
 
 .spinning::before {
-	--spinner-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' stroke='%23000' stroke-width='3' fill='none'><circle cx='10' cy='10' r='8' stroke-opacity='.5'/><path d='M10 2c4 0 8 4 8 8'><animateTransform attributeName='transform' type='rotate' dur='1s' from='0 10 10' to='360 10 10' repeatCount='indefinite'/></path></svg>");
+	--spinner-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'><g><circle cx='10' cy='10' r='8' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-dasharray='1 50' stroke-dashoffset='0'><animate attributeName='stroke-dasharray' dur='1.45s' values='1 50;34 18;1 50' repeatCount='indefinite'/><animate attributeName='stroke-dashoffset' dur='1.45s' values='0;-18;-52' repeatCount='indefinite'/></circle><animateTransform attributeName='transform' type='rotate' dur='1.45s' from='0 10 10' to='360 10 10' repeatCount='indefinite'/></g></svg>");
 
 	position: absolute;
 	top: calc(50% - 10px);
@@ -3930,13 +3957,14 @@ div.cbi-value var.cbi-tooltip-container,
 	width: 20px;
 	height: 20px;
 	content: " ";
-	background: var(--on-color, #000);
+	background: var(--on-color, var(--primary));
 	mask: var(--spinner-icon) center/cover no-repeat;
 	-webkit-mask: var(--spinner-icon) center/cover no-repeat;
 }
 
-[data-darkmode="true"] .spinning::before {
-	background: var(--on-color, #fff);
+[data-darkmode="true"] .spinning::before,
+[data-mode="dark"] .spinning::before {
+	background: var(--on-color, var(--primary));
 }
 
 [data-tab-title] {
