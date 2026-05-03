@@ -279,7 +279,7 @@ footer {
 	input[type="text"]+.cbi-button,
 	input[type="password"]+.cbi-button,
 	select+.cbi-button {
-		overflow: hidden;
+		/* overflow: hidden; */
 		text-overflow: ellipsis;
 	}
 
