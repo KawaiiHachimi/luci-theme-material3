@@ -9,26 +9,38 @@
 	import { getuid, getspnam } from 'luci.core';
 
 	const boardinfo = ubus.call('system', 'board');
-	const darkpref = (theme == 'material3-dark' ? 'true' : (theme == 'material3-light' ? 'false' : null));
 
 	http.prepare_content('text/html; charset=UTF-8');
 -%}
 
 <!DOCTYPE html>
-<html lang="{{ dispatcher.lang }}" {{ darkpref ? `data-darkmode="${darkpref}"` : '' }}>
+<html lang="{{ dispatcher.lang }}">
 	<head>
 		<meta charset="utf-8">
 		<title>{{ striptags(`${boardinfo.hostname ?? '?'}${dispatched?.title ? ` | ${_(dispatched.title)}` : ''}`) }}</title>
-		{% if (!darkpref): %}
-			<script>
+		<script>
+			(function() {
 				var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)'),
+				    modeKey = 'material3-mode-debug',
 				    rootElement = document.querySelector(':root'),
-				    setDarkMode = function(match) { rootElement.setAttribute('data-darkmode', match.matches) };
+				    setDarkMode = function(match) {
+					    var mode = localStorage.getItem(modeKey);
 
+					    if (mode == 'light' || mode == 'dark') {
+						    rootElement.setAttribute('data-mode', mode);
+						    rootElement.setAttribute('data-darkmode', mode == 'dark' ? 'true' : 'false');
+					    }
+					    else {
+						    rootElement.removeAttribute('data-mode');
+						    rootElement.setAttribute('data-darkmode', match.matches ? 'true' : 'false');
+					    }
+				    };
+
+				window.material3ApplyColorMode = setDarkMode;
 				mediaQuery.addEventListener('change', setDarkMode);
 				setDarkMode(mediaQuery);
-			</script>
-		{% endif %}
+			})();
+		</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="darkreader-lock">
 		<link rel="stylesheet" href="{{ media }}/cascade.css">
@@ -59,6 +71,17 @@
 				background: var(--primary-color-high);
 				color: var(--on-primary-color);
 				box-shadow: 0 2px 8px rgba(0, 0, 0, .22);
+			}
+
+			#material3-debug-switcher > button::before {
+				content: '';
+				display: block;
+				width: 20px;
+				height: 20px;
+				margin: auto;
+				background: currentColor;
+				-webkit-mask: url("{{ media }}/icons/palette.svg") center/contain no-repeat;
+				mask: url("{{ media }}/icons/palette.svg") center/contain no-repeat;
 			}
 
 			#material3-debug-switcher > div {
@@ -94,24 +117,50 @@
 				border-color: var(--primary-color-high);
 				box-shadow: inset 0 0 0 3px var(--background-color-high), 0 0 0 3px color-mix(in srgb, var(--primary-color-high) 30%, transparent);
 			}
+
+			#material3-debug-switcher button[data-mode] {
+				position: relative;
+				font-size: 0;
+			}
+
+			#material3-debug-switcher button[data-mode]::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				width: 18px;
+				height: 18px;
+				margin: auto;
+				background: currentColor;
+				-webkit-mask: var(--debug-mode-icon) center/contain no-repeat;
+				mask: var(--debug-mode-icon) center/contain no-repeat;
+			}
+
+			#material3-debug-switcher button[data-mode="light"] {
+				--debug-mode-icon: url("{{ media }}/icons/sun.svg");
+			}
+
+			#material3-debug-switcher button[data-mode="dark"] {
+				--debug-mode-icon: url("{{ media }}/icons/moon.svg");
+			}
+
+			#material3-debug-switcher button[data-mode="auto"] {
+				--debug-mode-icon: url("{{ media }}/icons/auto.svg");
+			}
 		</style>
 		<script>
 			(function() {
 				var root = document.documentElement,
 				    themeKey = 'material3-theme-debug',
 				    modeKey = 'material3-mode-debug',
-				    savedTheme = localStorage.getItem(themeKey),
-				    savedMode = localStorage.getItem(modeKey);
+				    savedTheme = localStorage.getItem(themeKey);
 
 				if (savedTheme)
 					root.setAttribute('data-theme', savedTheme);
 
-				if (savedMode) {
-					root.setAttribute('data-mode', savedMode);
-					root.setAttribute('data-darkmode', savedMode == 'dark' ? 'true' : 'false');
-				}
-
 				document.addEventListener('DOMContentLoaded', function() {
+					if (!window.L || !L.env || L.env.requestpath.join('/') != 'admin/system/system')
+						return;
+
 					var themes = [
 						['baseline', '#6750A4'],
 						['blue', '#0061A4'],
@@ -126,15 +175,15 @@
 
 					switcher.id = 'material3-debug-switcher';
 					toggle.type = 'button';
-					toggle.textContent = 'M3';
 					toggle.title = 'Material3 debug switcher';
+					toggle.setAttribute('aria-label', 'Material3 debug switcher');
 					toggle.addEventListener('click', function() {
 						switcher.toggleAttribute('open');
 					});
 
 					function setPressed() {
 						var theme = root.getAttribute('data-theme') || 'baseline',
-						    mode = root.getAttribute('data-mode') || (root.getAttribute('data-darkmode') == 'true' ? 'dark' : 'light');
+						    mode = localStorage.getItem(modeKey) || 'auto';
 
 						panel.querySelectorAll('[data-theme]').forEach(function(button) {
 							button.setAttribute('aria-pressed', button.getAttribute('data-theme') == theme ? 'true' : 'false');
@@ -159,16 +208,21 @@
 						panel.appendChild(button);
 					});
 
-					['light', 'dark'].forEach(function(mode) {
+					['auto', 'light', 'dark'].forEach(function(mode) {
 						var button = document.createElement('button');
 						button.type = 'button';
-						button.textContent = mode == 'dark' ? 'D' : 'L';
 						button.title = mode;
+						button.setAttribute('aria-label', mode);
 						button.setAttribute('data-mode', mode);
 						button.addEventListener('click', function() {
-							root.setAttribute('data-mode', mode);
-							root.setAttribute('data-darkmode', mode == 'dark' ? 'true' : 'false');
-							localStorage.setItem(modeKey, mode);
+							if (mode == 'auto')
+								localStorage.removeItem(modeKey);
+							else
+								localStorage.setItem(modeKey, mode);
+
+							if (window.material3ApplyColorMode)
+								window.material3ApplyColorMode(window.matchMedia('(prefers-color-scheme: dark)'));
+
 							setPressed();
 						});
 						panel.appendChild(button);
