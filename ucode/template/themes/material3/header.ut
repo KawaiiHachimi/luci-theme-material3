@@ -167,7 +167,10 @@
 						['green', '#006D3A'],
 						['teal', '#006A6A'],
 						['orange', '#8F4C00'],
-						['rose', '#BA1A46']
+						['vivid-orange', '#E85D04'],
+						['sakura', '#BB1614'],
+						['rose', '#BA1A46'],
+						['gray', '#3F3F46']
 					];
 					var switcher = document.createElement('div'),
 					    toggle = document.createElement('button'),

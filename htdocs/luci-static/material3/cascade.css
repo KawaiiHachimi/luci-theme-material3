@@ -274,8 +274,8 @@
 	--primary: #006D3A;
 	--primary-rgb: 0, 109, 58;
 	--on-primary: #FFFFFF;
-	--primary-container: #92F7B3;
-	--on-primary-container: #00210D;
+	--primary-container: #D5E8D4;
+	--on-primary-container: #102014;
 	--secondary: #526353;
 	--on-secondary: #FFFFFF;
 	--secondary-container: #D5E8D4;
@@ -322,8 +322,8 @@
 	--primary: #006A6A;
 	--primary-rgb: 0, 106, 106;
 	--on-primary: #FFFFFF;
-	--primary-container: #6FF7F6;
-	--on-primary-container: #002020;
+	--primary-container: #CCE8E7;
+	--on-primary-container: #051F1F;
 	--secondary: #4A6363;
 	--on-secondary: #FFFFFF;
 	--secondary-container: #CCE8E7;
@@ -412,7 +412,103 @@
 	--background-color-l: 99%;
 }
 
-/* 6. Expressive Rose - light */
+/* 6. Vivid Orange - light */
+:root[data-theme="vivid-orange"],
+:root[data-color-scheme="vivid-orange"] {
+	--primary: #E85D04;
+	--primary-rgb: 232, 93, 4;
+	--on-primary: #FFFFFF;
+	--primary-container: #FFDBC8;
+	--on-primary-container: #321200;
+	--secondary: #795847;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #FFDBC8;
+	--on-secondary-container: #2D160B;
+	--tertiary: #665F2F;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #EEE4A8;
+	--on-tertiary-container: #201C00;
+	--background: #FFFBFF;
+	--on-background: #221A15;
+	--surface: #FFFBFF;
+	--on-surface: #221A15;
+	--surface-container-low: #FAF0EA;
+	--surface-container: #F4EAE4;
+	--surface-container-high: #EEE4DE;
+	--surface-variant: #F5DED2;
+	--on-surface-variant: #53443B;
+	--outline: #85746A;
+	--outline-variant: #D8C3B7;
+	--error: #BA1A1A;
+	--error-rgb: 186, 26, 26;
+	--on-error: #FFFFFF;
+	--error-container: #FFDAD6;
+	--on-error-container: #410002;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #F06C18;
+	--button-pressed: #F27626;
+	--background-color-h: 24;
+	--background-color-s: 100%;
+	--background-color-l: 99%;
+}
+
+/* 7. Sakura Red - light */
+:root[data-theme="sakura"],
+:root[data-color-scheme="sakura"] {
+	--primary: #BB1614;
+	--primary-rgb: 187, 22, 20;
+	--on-primary: #FFFFFF;
+	--primary-container: #FFDAD6;
+	--on-primary-container: #410002;
+	--secondary: #775651;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #FFDAD6;
+	--on-secondary-container: #2C1512;
+	--tertiary: #725B2E;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #FFDEA6;
+	--on-tertiary-container: #261900;
+	--background: #FFFBFF;
+	--on-background: #201A19;
+	--surface: #FFFBFF;
+	--on-surface: #201A19;
+	--surface-container-low: #F9EFED;
+	--surface-container: #F3E9E7;
+	--surface-container-high: #EDE3E1;
+	--surface-variant: #F5DDDA;
+	--on-surface-variant: #534341;
+	--outline: #857370;
+	--outline-variant: #D8C2BE;
+	--error: #BA1A1A;
+	--error-rgb: 186, 26, 26;
+	--on-error: #FFFFFF;
+	--error-container: #FFDAD6;
+	--on-error-container: #410002;
+	--success: #006D3A;
+	--success-rgb: 0, 109, 58;
+	--on-success: #FFFFFF;
+	--success-container: #92F7B3;
+	--on-success-container: #00210D;
+	--warning: #8F4C00;
+	--on-warning: #FFFFFF;
+	--warning-container: #FFDCBE;
+	--on-warning-container: #2E1500;
+	--button-hover: #C52A27;
+	--button-pressed: #CB3531;
+	--background-color-h: 6;
+	--background-color-s: 100%;
+	--background-color-l: 99%;
+}
+
+/* 8. Expressive Rose - light */
 :root[data-theme="rose"],
 :root[data-color-scheme="rose"] {
 	--primary: #BA1A46;
@@ -458,6 +554,54 @@
 	--background-color-h: 340;
 	--background-color-s: 100%;
 	--background-color-l: 99%;
+}
+
+/* 9. Monochrome Gray - light */
+:root[data-theme="gray"],
+:root[data-color-scheme="gray"] {
+	--primary: #3F3F46;
+	--primary-rgb: 63, 63, 70;
+	--on-primary: #FFFFFF;
+	--primary-container: #E4E4E7;
+	--on-primary-container: #18181B;
+	--secondary: #52525B;
+	--on-secondary: #FFFFFF;
+	--secondary-container: #E4E4E7;
+	--on-secondary-container: #18181B;
+	--tertiary: #71717A;
+	--on-tertiary: #FFFFFF;
+	--tertiary-container: #F4F4F5;
+	--on-tertiary-container: #27272A;
+	--background: #FAFAFA;
+	--on-background: #18181B;
+	--surface: #FAFAFA;
+	--on-surface: #18181B;
+	--surface-container-low: #F4F4F5;
+	--surface-container: #EDEDEF;
+	--surface-container-high: #E4E4E7;
+	--surface-variant: #E4E4E7;
+	--on-surface-variant: #3F3F46;
+	--outline: #71717A;
+	--outline-variant: #D4D4D8;
+	--error: #A23A3A;
+	--error-rgb: 162, 58, 58;
+	--on-error: #FFFFFF;
+	--error-container: #F1D7D7;
+	--on-error-container: #3B1111;
+	--success: #3F7A52;
+	--success-rgb: 63, 122, 82;
+	--on-success: #FFFFFF;
+	--success-container: #D8E7DC;
+	--on-success-container: #102318;
+	--warning: #9A6A2F;
+	--on-warning: #FFFFFF;
+	--warning-container: #EEE0CC;
+	--on-warning-container: #2F1C04;
+	--button-hover: #52525B;
+	--button-pressed: #71717A;
+	--background-color-h: 0;
+	--background-color-s: 0%;
+	--background-color-l: 98%;
 }
 
 /* Material 3 dark palettes
@@ -738,7 +882,107 @@
 	--background-color-l: 11%;
 }
 
-/* 6. Expressive Rose - dark */
+/* 6. Vivid Orange - dark */
+:root[data-darkmode="true"][data-theme="vivid-orange"],
+:root[data-mode="dark"][data-theme="vivid-orange"],
+:root[data-darkmode="true"][data-color-scheme="vivid-orange"],
+:root[data-mode="dark"][data-color-scheme="vivid-orange"] {
+	--primary: #FFB68B;
+	--primary-rgb: 255, 182, 139;
+	--on-primary: #512400;
+	--primary-container: #BA4500;
+	--on-primary-container: #FFDBC8;
+	--secondary: #E8BEAA;
+	--on-secondary: #442A1C;
+	--secondary-container: #5F4030;
+	--on-secondary-container: #FFDBC8;
+	--tertiary: #D1C88E;
+	--on-tertiary: #363107;
+	--tertiary-container: #4E481C;
+	--on-tertiary-container: #EEE4A8;
+	--background: #221A15;
+	--on-background: #EEE0D9;
+	--surface: #221A15;
+	--on-surface: #EEE0D9;
+	--surface-container-low: #2A201A;
+	--surface-container: #342A23;
+	--surface-container-high: #40342D;
+	--surface-variant: #53443B;
+	--on-surface-variant: #D8C3B7;
+	--outline: #A08D82;
+	--outline-variant: #53443B;
+	--error: #FFB4AB;
+	--error-rgb: 255, 180, 171;
+	--on-error: #690005;
+	--error-container: #93000A;
+	--on-error-container: #FFDAD6;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #F4AA82;
+	--button-pressed: #EEA37B;
+	--background-color-h: 24;
+	--background-color-s: 16%;
+	--background-color-l: 11%;
+}
+
+/* 7. Sakura Red - dark */
+:root[data-darkmode="true"][data-theme="sakura"],
+:root[data-mode="dark"][data-theme="sakura"],
+:root[data-darkmode="true"][data-color-scheme="sakura"],
+:root[data-mode="dark"][data-color-scheme="sakura"] {
+	--primary: #FFB4AB;
+	--primary-rgb: 255, 180, 171;
+	--on-primary: #690005;
+	--primary-container: #93000A;
+	--on-primary-container: #FFDAD6;
+	--secondary: #E7BDB7;
+	--on-secondary: #442925;
+	--secondary-container: #5D3F3B;
+	--on-secondary-container: #FFDAD6;
+	--tertiary: #DFC38C;
+	--on-tertiary: #402D04;
+	--tertiary-container: #594419;
+	--on-tertiary-container: #FFDEA6;
+	--background: #201A19;
+	--on-background: #EDE0DE;
+	--surface: #201A19;
+	--on-surface: #EDE0DE;
+	--surface-container-low: #271F1E;
+	--surface-container: #312927;
+	--surface-container-high: #3D3331;
+	--surface-variant: #534341;
+	--on-surface-variant: #D8C2BE;
+	--outline: #A08C88;
+	--outline-variant: #534341;
+	--error: #FFB4AB;
+	--error-rgb: 255, 180, 171;
+	--on-error: #690005;
+	--error-container: #93000A;
+	--on-error-container: #FFDAD6;
+	--success: #78D999;
+	--success-rgb: 120, 217, 153;
+	--on-success: #00391A;
+	--success-container: #00522A;
+	--on-success-container: #92F7B3;
+	--warning: #FFB86C;
+	--on-warning: #4A2800;
+	--warning-container: #6D3900;
+	--on-warning-container: #FFDCBE;
+	--button-hover: #F6A69D;
+	--button-pressed: #EF9F96;
+	--background-color-h: 6;
+	--background-color-s: 12%;
+	--background-color-l: 11%;
+}
+
+/* 8. Expressive Rose - dark */
 :root[data-darkmode="true"][data-theme="rose"],
 :root[data-mode="dark"][data-theme="rose"],
 :root[data-darkmode="true"][data-color-scheme="rose"],
@@ -786,6 +1030,56 @@
 	--background-color-h: 350;
 	--background-color-s: 10%;
 	--background-color-l: 11%;
+}
+
+/* 9. Monochrome Gray - dark */
+:root[data-darkmode="true"][data-theme="gray"],
+:root[data-mode="dark"][data-theme="gray"],
+:root[data-darkmode="true"][data-color-scheme="gray"],
+:root[data-mode="dark"][data-color-scheme="gray"] {
+	--primary: #D4D4D8;
+	--primary-rgb: 212, 212, 216;
+	--on-primary: #27272A;
+	--primary-container: #3F3F46;
+	--on-primary-container: #F4F4F5;
+	--secondary: #D4D4D8;
+	--on-secondary: #27272A;
+	--secondary-container: #52525B;
+	--on-secondary-container: #F4F4F5;
+	--tertiary: #A1A1AA;
+	--on-tertiary: #18181B;
+	--tertiary-container: #3F3F46;
+	--on-tertiary-container: #F4F4F5;
+	--background: #18181B;
+	--on-background: #E4E4E7;
+	--surface: #18181B;
+	--on-surface: #E4E4E7;
+	--surface-container-low: #1F1F23;
+	--surface-container: #27272A;
+	--surface-container-high: #3F3F46;
+	--surface-variant: #52525B;
+	--on-surface-variant: #D4D4D8;
+	--outline: #A1A1AA;
+	--outline-variant: #52525B;
+	--error: #E0A7A7;
+	--error-rgb: 224, 167, 167;
+	--on-error: #4A1616;
+	--error-container: #743030;
+	--on-error-container: #F1D7D7;
+	--success: #A8CDB2;
+	--success-rgb: 168, 205, 178;
+	--on-success: #193521;
+	--success-container: #315B3F;
+	--on-success-container: #D8E7DC;
+	--warning: #D6BB94;
+	--on-warning: #3F290C;
+	--warning-container: #72502A;
+	--on-warning-container: #EEE0CC;
+	--button-hover: #C4C4C8;
+	--button-pressed: #B4B4B9;
+	--background-color-h: 0;
+	--background-color-s: 0%;
+	--background-color-l: 10%;
 }
 
 /* Reset.less
@@ -1005,7 +1299,6 @@ legend,
 h4,
 h5,
 h6 {
-	font-weight: bold;
 	color: var(--text-color-high);
 }
 
@@ -1029,7 +1322,7 @@ h1 small {
 }
 
 h2 {
-	margin-bottom: 18px;
+	margin: 9px 0;
 	font-size: 24px;
 	font-weight: 350;
 	line-height: 36px;
@@ -1061,7 +1354,6 @@ h3 small {
 .cbi-title h3 {
 	align-items: center;
 	gap: 12px;
-	margin: 0 0 12px;
 }
 
 h4 {
@@ -1603,13 +1895,7 @@ textarea[readonly] {
 	cursor: auto;
 }
 
-.cbi-optionals,
 .cbi-section-create {
-	padding: 10px;
-}
-
-.cbi-section-create {
-	margin: -3px;
 	display: inline-flex;
 	align-items: center;
 }
@@ -2957,10 +3243,9 @@ body.modal-overlay-active #modal_overlay {
 
 .cbi-dropdown.btn>.open,
 .cbi-dropdown.cbi-button>.open {
-	padding: 0 .5em;
-	margin-left: .5em;
+	padding: 0 .6em;
+	margin-left: .3em;
 	border-left: 1px solid;
-	border-left-color: color-mix(in srgb, var(--on-color, currentColor) 35%, transparent);
 }
 
 .cbi-dropdown.btn>.open::before,
@@ -4128,7 +4413,7 @@ div.cbi-value var.cbi-tooltip-container,
 
 .cbi-section-node,
 .table {
-	margin: 1px;
+	margin: 0 1px 10px 1px;
 	width: calc(100% - 2px);
 	border-radius: var(--material3-card-radius);
 	background: var(--material3-card-background);
@@ -4158,14 +4443,7 @@ body[data-page="admin-status-overview"] .cbi-section {
 	box-shadow: none;
 }
 
-body[data-page="admin-status-overview"] h2[name="content"] {
-	margin-bottom: 18px;
-}
-
 body[data-page="admin-status-overview"] .cbi-title h3 {
-	align-items: center;
-	gap: 12px;
-	margin: 0 0 12px;
 	color: var(--on-surface);
 	font-size: 18px;
 	line-height: 36px;
@@ -4375,6 +4653,10 @@ body[data-page="admin-status-overview"] .tr.cbi-section-table-titles {
 
 :is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard .cbi-progressbar>div {
 	background: var(--primary);
+}
+
+:is(body[data-page="admin-status-iptables"], body[data-page="admin-status-nftables-iptables"]) .cbi-tabmenu {
+	margin-top: 28px;
 }
 
 [data-darkmode="true"] :is(body[data-page="admin-dashboard"], body[data-page="admin"], body[data-page=""]) .Dashboard img.svgmonotone,
