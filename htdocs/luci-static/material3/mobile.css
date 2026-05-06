@@ -148,6 +148,7 @@ header h3 a {
 	}
 
 	.tr.table-titles,
+	.tr.dashboard-table-titles,
 	.cbi-section-table-titles,
 	.cbi-section-table-descr {
 		display: none;
@@ -319,6 +320,27 @@ header h3 a {
 	:is([data-page="admin-status-overview"], [data-page=""]) .td[data-title]::before {
 		border-top: 0;
 		border-bottom: 0;
+	}
+
+	:is([data-page="admin-dashboard"], [data-page="admin"], [data-page=""]) :is(.Dashboard, .dashboard-bg.box-s1) .td[data-title]::before {
+		word-break: keep-all;
+	}
+
+	:is([data-page="admin-dashboard"], [data-page="admin"], [data-page=""]) .Dashboard .devices-list .devices-info .tr .td {
+		padding: 3px !important;
+	}
+
+	:is([data-page="admin-dashboard"], [data-page="admin"], [data-page=""]) .Dashboard .router-status-wifi.dashboard-bg.box-s1 .assoclist.devices-info.table>.tr:not(.dashboard-table-titles)>.td {
+		display: block;
+		flex: 0 0 50% !important;
+		width: 50% !important;
+		max-width: 50%;
+		min-width: 0;
+	}
+
+	:is([data-page="admin-dashboard"], [data-page="admin"], [data-page=""]) .Dashboard .router-status-wifi.dashboard-bg.box-s1 .assoclist.devices-info .cbi-progressbar {
+		width: 100% !important;
+		min-width: 0 !important;
 	}
 
 	header .pull-right .label {
