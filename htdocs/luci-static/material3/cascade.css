@@ -3798,7 +3798,7 @@ form.inline {
 	width: 100%;
 	color: var(--text-color-highest);
 	margin-bottom: 18px;
-	font-family: monospace;
+	font-family: Consolas, Monaco, "Courier New", Menlo, monospace;
 }
 
 .cbi-section-table .tr:hover .td,
