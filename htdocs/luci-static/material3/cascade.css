@@ -2169,7 +2169,9 @@ body.sidebar-open header {
 }
 
 .sidebar {
-	position: fixed;
+	position: sticky;
+	height: calc(100vh - var(--material3-header-height));
+	margin-bottom: calc(var(--material3-header-height) - 100vh);
 	top: var(--material3-header-height);
 	left: 0;
 	bottom: 0;
@@ -2236,6 +2238,10 @@ body.sidebar-open header {
 	}
 
 	.sidebar {
+		position: fixed;
+		height: auto;
+		float: none;
+		margin-bottom: 0;
 		transform: translateX(-100%);
 		z-index: 900;
 		border-radius: 0 1rem 1rem 0;
