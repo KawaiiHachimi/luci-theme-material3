@@ -1229,6 +1229,22 @@ body {
 	-webkit-tap-highlight-color: transparent;
 }
 
+a,
+button,
+input,
+select,
+textarea,
+label[for],
+.btn,
+.cbi-button,
+.cbi-dropdown,
+.menu-btn,
+header [data-indicator],
+.tabs a,
+.cbi-tabmenu a {
+	touch-action: manipulation;
+}
+
 .container {
 	width: 100%;
 	max-width: 1180px;
