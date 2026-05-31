@@ -1555,7 +1555,7 @@ select {
 
 label>input[type="checkbox"],
 label>input[type="radio"] {
-	vertical-align: text-top;
+	vertical-align: middle;
 	margin: 0;
 }
 
@@ -1797,6 +1797,30 @@ input[type="radio"]::before {
 	border-radius: 2px;
 }
 
+input[type="checkbox"] {
+	--switch-track: var(--surface-container-high);
+	--switch-thumb: var(--outline);
+	--switch-checked-track: var(--primary);
+	--switch-checked-thumb: var(--on-primary);
+	width: 36px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+input[type="checkbox"]::before {
+	width: 36px;
+	height: 20px;
+	background: var(--switch-track);
+	border: 1px solid var(--bd-color);
+	border-radius: 10px;
+	transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+input[type="checkbox"]:checked::before {
+	background: var(--switch-checked-track);
+	border-color: var(--switch-checked-track);
+}
+
 input[type="radio"],
 input[type="radio"]::before {
 	border-radius: 50%;
@@ -1820,6 +1844,21 @@ input[type="radio"]:checked::after {
 
 input[type="radio"]:checked:after {
 	--checkmark-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='7'/></svg>");
+}
+
+input[type="checkbox"]::after {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--switch-thumb);
+	transition: transform .2s ease, background-color .2s ease;
+}
+
+input[type="checkbox"]:checked::after {
+	-webkit-mask: none;
+	mask: none;
+	background: var(--switch-checked-thumb);
+	transform: translateX(16px);
 }
 
 input[type="checkbox"].cbi-input-invalid,
