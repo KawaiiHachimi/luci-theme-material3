@@ -4,6 +4,7 @@
 
 return baseclass.extend({
 	__init__() {
+		this.suppressClick = null;
 		ui.menu.load().then((tree) => this.render(tree));
 		this.initNavigationShell();
 		this.initDashboardTables();
@@ -43,6 +44,66 @@ return baseclass.extend({
 		}
 	},
 
+	shouldSuppressClick(ev) {
+		const click = this.suppressClick;
+
+		if (!click || Date.now() >= click.until)
+			return false;
+
+		const dx = Math.abs(ev.clientX - click.x);
+		const dy = Math.abs(ev.clientY - click.y);
+		const suppress = dx < 24 && dy < 24;
+
+		if (suppress)
+			this.suppressClick = null;
+
+		return suppress;
+	},
+
+	bindFastTap(target, handler) {
+		let startX = 0;
+		let startY = 0;
+		let moved = false;
+
+		target.addEventListener('pointerdown', ev => {
+			if (ev.pointerType == 'mouse' || ev.button)
+				return;
+
+			startX = ev.clientX;
+			startY = ev.clientY;
+			moved = false;
+		}, { passive: true });
+
+		target.addEventListener('pointermove', ev => {
+			if (Math.abs(ev.clientX - startX) > 8 || Math.abs(ev.clientY - startY) > 8)
+				moved = true;
+		}, { passive: true });
+
+		target.addEventListener('pointerup', ev => {
+			if (ev.pointerType == 'mouse' || ev.button || moved)
+				return;
+
+			this.suppressClick = {
+				x: ev.clientX,
+				y: ev.clientY,
+				until: Date.now() + 500
+			};
+			ev.preventDefault();
+			ev.stopPropagation();
+			handler(ev);
+		});
+
+		target.addEventListener('click', ev => {
+			if (this.shouldSuppressClick(ev)) {
+				ev.preventDefault();
+				ev.stopPropagation();
+				return;
+			}
+
+			handler(ev);
+		});
+	},
+
 	closeOtherMenus(currentMenu) {
 		document.querySelectorAll('#topmenu > li.open').forEach(menu => {
 			if (menu === currentMenu)
@@ -80,6 +141,14 @@ return baseclass.extend({
 		if (!button || !sidebar || !overlay)
 			return;
 
+		document.addEventListener('click', ev => {
+			if (!this.shouldSuppressClick(ev))
+				return;
+
+			ev.preventDefault();
+			ev.stopPropagation();
+		}, true);
+
 		const close = () => {
 			sidebar.classList.remove('active');
 			overlay.classList.remove('active');
@@ -89,7 +158,7 @@ return baseclass.extend({
 			button.setAttribute('aria-expanded', 'false');
 		};
 
-		button.addEventListener('click', () => {
+		this.bindFastTap(button, () => {
 			sidebar.classList.toggle('active');
 			overlay.classList.toggle('active');
 			const isOpen = sidebar.classList.contains('active');
@@ -107,24 +176,31 @@ return baseclass.extend({
 				close();
 		});
 
-		sidebar.addEventListener('click', ev => {
+		sidebar.addEventListener('pointerdown', ev => {
 			const link = ev.target.closest('a[href]');
 
 			if (!link)
 				return;
 
 			this.createRipple(ev, link);
+		}, { passive: true });
+
+		sidebar.addEventListener('click', ev => {
+			const link = ev.target.closest('a[href]');
+
+			if (!link)
+				return;
 
 			if (link.getAttribute('href') != '#')
 				close();
 		});
 
-		document.addEventListener('click', ev => {
+		document.addEventListener('pointerdown', ev => {
 			const target = ev.target.closest('.tabs > li, .cbi-tabmenu > li');
 
 			if (target)
 				this.createRipple(ev, target);
-		});
+		}, { passive: true });
 
 		sidebar.addEventListener('mouseover', ev => {
 			const link = ev.target.closest('.nav a');
@@ -289,19 +365,18 @@ return baseclass.extend({
 				'href': linkurl
 			};
 
-			if (!level && hasSubmenu) {
-				linkAttrs.click = ev => {
-					ev.preventDefault();
-					this.toggleDropdown(ev.currentTarget.parentNode);
-				};
-			}
-
 			const li = E('li', attrs, [
 				E('a', linkAttrs, [
 					E('span', { 'class': 'nav-menu-title' }, [_(child.title)]),
 				]),
 				submenu
 			]);
+
+			if (!level && hasSubmenu)
+				this.bindFastTap(li.firstElementChild, ev => {
+					ev.preventDefault();
+					this.toggleDropdown(li);
+				});
 
 			if (!level && hasSubmenu && isActive)
 				submenu.style.height = 'auto';
