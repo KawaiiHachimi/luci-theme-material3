@@ -1548,6 +1548,14 @@ select {
 	color: var(--text-color-high);
 }
 
+.cbi-value[data-widget="CBI.FlagValue"]:has(> .cbi-value-field > .cbi-checkbox) {
+	align-items: center;
+}
+
+.cbi-value[data-widget="CBI.FlagValue"]:has(> .cbi-value-field > .cbi-checkbox)>label.cbi-value-title {
+	padding-top: 0;
+}
+
 .cbi-value>.cbi-section,
 .cbi-value>.cbi-tblsection {
 	width: 100%;
@@ -1802,17 +1810,17 @@ input[type="checkbox"] {
 	--switch-thumb: var(--outline);
 	--switch-checked-track: var(--primary);
 	--switch-checked-thumb: var(--on-primary);
-	width: 36px;
-	height: 20px;
+	width: 44px;
+	height: 24px;
 	vertical-align: middle;
 }
 
 input[type="checkbox"]::before {
-	width: 36px;
-	height: 20px;
+	width: 44px;
+	height: 24px;
 	background: var(--switch-track);
 	border: 1px solid var(--bd-color);
-	border-radius: 10px;
+	border-radius: 12px;
 	transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
@@ -1826,7 +1834,6 @@ input[type="radio"]::before {
 	border-radius: 50%;
 }
 
-input[type="checkbox"]::after,
 input[type="radio"]::after {
 	top: 2px;
 	left: 2px;
@@ -1847,8 +1854,10 @@ input[type="radio"]:checked:after {
 }
 
 input[type="checkbox"]::after {
-	width: 16px;
-	height: 16px;
+	top: 3px;
+	left: 3px;
+	width: 18px;
+	height: 18px;
 	border-radius: 50%;
 	background: var(--switch-thumb);
 	transition: transform .2s ease, background-color .2s ease;
@@ -1858,7 +1867,30 @@ input[type="checkbox"]:checked::after {
 	-webkit-mask: none;
 	mask: none;
 	background: var(--switch-checked-thumb);
-	transform: translateX(16px);
+	transform: translateX(20px);
+}
+
+.cbi-checkbox {
+	position: relative;
+}
+
+.cbi-checkbox input[type="checkbox"]+label {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+.cbi-checkbox input[type="checkbox"]:checked+label::before {
+	--switch-check-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M1.6 4.1 3.1 5.6 6.4 2.4' fill='none' stroke='%23000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: 28px;
+	width: 10px;
+	height: 10px;
+	background: var(--primary);
+	-webkit-mask: var(--switch-check-icon) center/contain no-repeat;
+	mask: var(--switch-check-icon) center/contain no-repeat;
 }
 
 input[type="checkbox"].cbi-input-invalid,
@@ -2573,7 +2605,9 @@ li.menu,
 	color: var(--text-color-highest) !important;
 }
 
-@media (hover: none), (pointer: coarse), (any-pointer: coarse) {
+@media (hover: none),
+(pointer: coarse),
+(any-pointer: coarse) {
 	.nav>li:not(.active)>a:hover {
 		background: transparent;
 		color: var(--text-color-high);
