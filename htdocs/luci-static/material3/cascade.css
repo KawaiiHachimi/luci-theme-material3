@@ -2148,8 +2148,8 @@ body.sidebar-open header {
 .menu-btn span::after {
 	display: block;
 	width: 20px;
-	height: 2px;
-	border-radius: 1px;
+	height: 0.1rem;
+	border-radius: 0.05rem;
 	background: currentColor;
 	transition: transform .3s ease, opacity .3s ease;
 }
