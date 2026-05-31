@@ -1839,6 +1839,10 @@ input[type="radio"]::after {
 	left: 2px;
 	width: 10px;
 	height: 10px;
+	border-radius: 50%;
+	transform: scale(0);
+	transform-origin: center;
+	transition: background-color .2s ease, transform .18s cubic-bezier(.2, 0, 0, 1);
 }
 
 input[type="checkbox"]:checked::after,
@@ -1851,6 +1855,7 @@ input[type="radio"]:checked::after {
 
 input[type="radio"]:checked:after {
 	--checkmark-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='7'/></svg>");
+	transform: scale(1);
 }
 
 input[type="checkbox"]::after {
@@ -1941,6 +1946,18 @@ select:focus {
 	border-color: rgba(var(--focus-color-rgb), 0.8) !important;
 	box-shadow: inset 0 1px 3px hsla(var(--border-color-low-hsl), .01);
 	text-decoration: none;
+}
+
+input[type="radio"]::before {
+	transition: border-color .2s ease, background-color .2s ease, box-shadow .18s ease;
+	box-shadow: 0 0 0 0 color-mix(in srgb, var(--text-color-high) 0%, transparent);
+}
+
+.cbi-radio:hover input[type="radio"]::before,
+label:hover > input[type="radio"]::before,
+input[type="radio"]:hover::before,
+input[type="radio"]:focus::before {
+	box-shadow: 0 0 0 7px color-mix(in srgb, var(--text-color-high) 10%, transparent);
 }
 
 .btn:hover,
