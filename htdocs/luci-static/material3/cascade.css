@@ -2287,16 +2287,15 @@ body.sidebar-open header {
 		width: 100%;
 		min-width: 100%;
 	}
+}
 
-	.cbi-dropdown[open].btn>ul.dropdown,
-	.cbi-dropdown[open].cbi-button>ul.dropdown {
-		left: 0 !important;
-		right: auto !important;
-		width: max-content;
-		max-width: calc(100vw - 24px);
-		min-width: 100%;
-	}
-
+.cbi-dropdown[open].btn>ul.dropdown,
+.cbi-dropdown[open].cbi-button>ul.dropdown {
+	left: 0 !important;
+	right: auto !important;
+	width: max-content;
+	max-width: calc(100vw - 24px);
+	min-width: 100%;
 }
 
 .nav {
