@@ -525,7 +525,7 @@ header h3 a {
 	}
 
 	body[data-page="admin-network-wireless"] .td[data-name="_badge"] {
-		max-width: 50px;
+		max-width: 90px;
 		align-self: center;
 	}
 
