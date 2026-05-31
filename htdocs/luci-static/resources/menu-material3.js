@@ -180,23 +180,29 @@ return baseclass.extend({
 	updateDashboardTables() {
 		document.querySelectorAll('.Dashboard, .dashboard-bg.box-s1').forEach(scope => {
 			scope.querySelectorAll('.table').forEach(table => {
-				const rows = Array.prototype.filter.call(table.children, child => child.classList && child.classList.contains('tr'));
-				const headerRow = rows.find(row => row.querySelector('.th'));
+				const rows = Array.prototype.filter.call(table.querySelectorAll('.tr, tr'), row =>
+					row.closest('.table') === table);
+				const headerRow = Array.prototype.find.call(table.children, child =>
+					child.querySelector && child.querySelector('.th, th')) ||
+					rows.find(row => row.querySelector('.th, th'));
 
 				if (!headerRow)
 					return;
 
-				const titles = Array.prototype.map.call(headerRow.children, cell =>
-					cell.classList && cell.classList.contains('th') ? cell.textContent.trim() : '');
+				const titleCells = headerRow.querySelectorAll('.th, th');
+				const titles = Array.prototype.map.call(titleCells, cell => cell.textContent.trim());
 
 				headerRow.classList.add('dashboard-table-titles');
 
 				rows.forEach(row => {
-					if (row === headerRow)
+					if (row === headerRow || row.querySelector('.th, th'))
 						return;
 
-					Array.prototype.forEach.call(row.children, (cell, index) => {
-						if (!cell.classList || !cell.classList.contains('td') || !titles[index])
+					const cells = Array.prototype.filter.call(row.children, cell =>
+						(cell.classList && cell.classList.contains('td')) || cell.tagName == 'TD');
+
+					cells.forEach((cell, index) => {
+						if (!titles[index])
 							return;
 
 						if (!cell.getAttribute('data-title'))
