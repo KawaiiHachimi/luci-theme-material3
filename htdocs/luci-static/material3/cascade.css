@@ -2623,9 +2623,7 @@ li.menu,
 	color: var(--text-color-highest) !important;
 }
 
-@media (hover: none),
-(pointer: coarse),
-(any-pointer: coarse) {
+@media (hover: none) and (pointer: coarse) and (any-hover: none) {
 	.nav>li:not(.active)>a:hover {
 		background: transparent;
 		color: var(--text-color-high);
